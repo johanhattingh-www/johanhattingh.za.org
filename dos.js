@@ -32,7 +32,7 @@ const fs = {
                     },
                     "CONFIG.SYS": {
                         type: "file",
-                        content: "FILES=40\nBUFFERS=20\nDEVICE=HIMEM.SYS\nDOS=HIGH,UMB"
+                        content: "DEVICE=C:\\DOS\\HIMEM.SYS\nDEVICE=C:\\DOS\\EMM386.EXE NOEMS\nDOS=HIGH,UMB\nFILES=40\nBUFFERS=20\nSTACKS=9,256\nLASTDRIVE=Z\nSHELL=C:\\DOS\\COMMAND.COM /P /E:512\nCOUNTRY=001,437,C:\\DOS\\COUNTRY.SYS\nUSER=ID10T"
                     }
                 }
             },
