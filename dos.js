@@ -136,6 +136,68 @@ function processCommand(rawCmd) {
                 printOutput("\n" + rootDir["HELP.TXT"].content + "\n");
             }
             break;
+        case "MEM":
+            let memArg = argStr.toUpperCase();
+            if (memArg.includes("/C")) {
+                printOutput("\nMODULE NAME     CONVENTIONAL       UPPER MEMORY");
+                printOutput("-----------     ------------       ------------");
+                printOutput("MSDOS             15,320   (15K)          0     (0K)");
+                printOutput("HIMEM              1,168    (1K)          0     (0K)");
+                printOutput("COMMAND            3,240    (3K)          0     (0K)");
+                printOutput("BROWSER           45,120   (44K)          0     (0K)");
+                printOutput("FREE              575,696  (562K)         0     (0K)");
+                printOutput("\nTotal conventional memory:   640,000");
+                printOutput("Total free conventional memory:  575,696\n");
+            } else if (memArg.includes("/D")) {
+                printOutput("\nPerform Debug memory analysis...");
+                printOutput("Conventional Memory starts at paragraph 0000");
+                printOutput("System BIOS length: 64KB, Interrupt Vector Table allocated.\n");
+            } else if (memArg.includes("/P")) {
+                printOutput("\nMemory Type       Total       Used       Free");
+                printOutput("-----------       -----       ----       ----");
+                printOutput("Conventional        640K        64K       576K");
+                printOutput("Upper                 0K         0K         0K");
+                printOutput("Reserved             384K       384K         0K");
+                printOutput("Extended (XMS)     15,872K     1,024K    14,848K");
+                printOutput("----------------  -------    -------    -------");
+                printOutput("Total memory       16,896K     1,472K    15,424K\n");
+            } else {
+                printOutput("\n655360 bytes total conventional memory");
+                printOutput("655360 bytes available to MS-DOS");
+                printOutput("589824 largest executable program size\n");
+                printOutput("16777216 bytes total XMS memory");
+                printOutput("15728640 bytes free XMS memory\n");
+            }
+            break;
+        case "CHKDSK":
+            let chkArg = argStr.toUpperCase();
+            printOutput("\nVolume JOHAN_DOS created 09-23-2026 12:00 AM");
+            printOutput("Volume Serial Number is 1994-0622");
+            printOutput("  1,457,664 bytes total disk space");
+            printOutput("      4,096 bytes in 3 hidden files");
+            printOutput("     16,384 bytes in 5 directories");
+            printOutput("    450,560 bytes in 12 user files");
+            printOutput("    986,624 bytes available on disk");
+            printOutput("\n      1,024 bytes in each allocation unit.");
+            printOutput("      1,424 total allocation units on disk.");
+            printOutput("        963 available allocation units on disk.\n");
+            printOutput("  655,360 total bytes memory.");
+            printOutput("  575,696 bytes free memory.\n");
+            if (chkArg.includes("/F")) {
+                printOutput("Errors found, F-parameter not supported on virtual read-only volume.\n");
+            }
+            if (chkArg.includes("/V")) {
+                printOutput("C:\\README.TXT");
+                printOutput("C:\\HELP.TXT");
+                printOutput("C:\\BLOG\\TODAY.TXT");
+                printOutput("C:\\BLOG\\ARCHIVES.TXT");
+                printOutput("C:\\SYSTEM\\STATUS.BAT");
+                printOutput("C:\\SYSTEM\\CONFIG.SYS");
+                printOutput("C:\\GAMES\\MATRIX.EXE");
+                printOutput("C:\\GAMES\\DOOM.BAT");
+                printOutput("C:\\GAMES\\HACK.COM\n");
+            }
+            break;
         case "DIR":
             printOutput("\n Directory of " + currentPath.join("\\") + (currentPath.length === 1 ? "\\" : ""));
             let count = 0;
