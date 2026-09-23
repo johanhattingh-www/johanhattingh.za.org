@@ -91,7 +91,8 @@ body.mode-co80 {
     color: inherit;
     font-family: inherit;
     font-size: inherit;
-    flex-grow: 1;
+    flex: 0 1 auto;
+    min-width: 0;
     caret-color: transparent;
     padding-left: 2px;
     white-space: pre;
