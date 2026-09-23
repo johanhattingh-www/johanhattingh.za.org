@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS-DOS v6.22 - www.johanhattingh.za.org</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body class="mode-co80">
+    <div class="crt-overlay"></div>
+    <div id="terminal" class="terminal">
+        <div id="screen" class="screen">
+            <div id="output"></div>
+            <div id="prompt-line" class="prompt-line">
+                <span id="prompt-text">C:\&gt;</span>
+                <span id="command-input" contenteditable="true" spellcheck="false"></span>
+                <span class="cursor">_</span>
+            </div>
+        </div>
+    </div>
+    <script src="dos.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000000;
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    line-height: 1.2;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+body.mode-mono {
+    color: #00ff00;
+}
+
+body.mode-amber {
+    color: #ffb000;
+}
+
+body.mode-co40 {
+    font-size: 28px;
+}
+
+body.mode-co80 {
+    font-size: 22px;
+}
+
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+    );
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.terminal {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#output {
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.prompt-line {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+#prompt-text {
+    white-space: pre;
+}
+
+#command-input {
+    outline: none;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    flex-grow: 1;
+    caret-color: transparent;
+    padding-left: 2px;
+    white-space: pre;
+    overflow-x: hidden;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.matrix-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 1000;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.matrix-canvas {
+    width: 100%;
+    height: 100%;
+}
