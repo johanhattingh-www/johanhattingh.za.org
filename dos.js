@@ -502,6 +502,101 @@ function runHobbit() {
     printOutput("");
 }
 
+function processHobbitCommand(raw) {
+    let cmd = raw.toUpperCase().trim();
+    if (!cmd) return;
+    let parts = cmd.split(/\s+/);
+    let verb = parts[0];
+    let obj = parts.slice(1).join(" ");
+
+    if (verb === "QUIT" || verb === "EXIT") {
+        printOutput("\nYou abandon your quest and return to your armchair. Game Over.\n");
+        currentGameState = "DOS";
+        updatePrompt();
+        return;
+    }
+
+    if (verb === "INVENTORY" || verb === "I") {
+        printOutput(hobbitState.inventory.length > 0 ? "You are carrying: " + hobbitState.inventory.join(", ") : "You are carrying nothing.");
+        return;
+    }
+
+    if (verb === "LOOK" || verb === "L") {
+        hobbitState.describeCurrentLoc();
+        return;
+    }
+
+    let loc = hobbitState.world[hobbitState.playerLoc];
+
+    // Navigation
+    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
+    if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
+        let dirKey = directions[verb] || directions[parts[1]];
+        if (loc.exits[dirKey]) {
+            hobbitState.playerLoc = loc.exits[dirKey];
+            hobbitState.score += 5;
+            hobbitState.describeCurrentLoc();
+            if (hobbitState.playerLoc === "hobbiton") {
+                printOutput("\nThorin Oakenshield steps forward, adjusting his hood: 'Master Baggins! At last! We have long awaited our burglar for the journey to Erebor!'");
+            }
+        } else {
+            printOutput("You cannot go that way.");
+        }
+        return;
+    }
+
+    // Take item
+    if (verb === "TAKE" || verb === "GET") {
+        let idx = loc.items.indexOf(obj);
+        if (idx !== -1) {
+            loc.items.splice(idx, 1);
+            hobbitState.inventory.push(obj);
+            hobbitState.score += 10;
+            printOutput("Taken.");
+            if (obj === "RING") {
+                printOutput("The One Ring slips onto your finger. You vanish from sight! Gandalf smiles knowingly from across the room.");
+            } else if (obj === "MAP") {
+                printOutput("You unfold Thror's Map. Secret moon-runes gleam: 'Stand by the grey stone when the thrush knocks...'");
+            }
+        } else {
+            printOutput("You don't see that here.");
+        }
+        return;
+    }
+
+    // Drop item
+    if (verb === "DROP") {
+        let idx = hobbitState.inventory.indexOf(obj);
+        if (idx !== -1) {
+            hobbitState.inventory.splice(idx, 1);
+            loc.items.push(obj);
+            printOutput("Dropped.");
+        } else {
+            printOutput("You aren't carrying that.");
+        }
+        return;
+    }
+
+    // INGRID Parser
+    if (verb === "EXAMINE" || verb === "LOOK" || verb === "X") {
+        printOutput("It looks quite interesting and peculiarly useful for an adventurous hobbit.");
+        return;
+    }
+
+    if (verb === "ASK" || verb === "TALK") {
+        if (cmd.includes("GANDALF")) {
+            printOutput("Gandalf puffs his pipe and mutters: 'Courage is found in unlikely places, Bilbo.'");
+        } else if (cmd.includes("THORIN")) {
+            printOutput("Thorin Oakenshield grunts: 'To the Mountain we must go! Find the secret door!'");
+        } else {
+            printOutput("They have nothing to say about that.");
+        }
+        return;
+    }
+
+    printOutput("The INGRID parser does not understand '" + raw + "'. Try directions (NORTH, SOUTH...), TAKE <item>, INVENTORY, or ASK THORIN ABOUT KEY.");
+}
+
 function init() {
     printOutput("MS-DOS Version 6.22");
     printOutput("(C) Copyright Microsoft Corp 1981-1994.\n");
