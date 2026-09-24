@@ -109,18 +109,37 @@ function printOutput(text) {
 }
 
 async function initFilesystem() {
-    try {
-        let res = await fetch('blog/today.txt');
-        if (res.ok) fs["C:"].content["BLOG"].content["TODAY.TXT"].content = await res.text();
-        let res2 = await fetch('blog/archives.txt');
-        if (res2.ok) fs["C:"].content["BLOG"].content["ARCHIVES.TXT"].content = await res2.text();
-        let resStroke = await fetch('blog/stroke.txt');
-        if (resStroke.ok) fs["C:"].content["BLOG"].content["STROKE.TXT"].content = await resStroke.text();
-        let res3 = await fetch('games/walkthrough.txt');
-        if (res3.ok) fs["C:"].content["GAMES"].content["WALKTHRU.TXT"].content = await res3.text();
-    } catch(e) {
-        // fallback to embedded
+    // Automatically discover and load all text files from blog/ and games/ folders
+    const blogFiles = ['today.txt', 'archives.txt', 'stroke.txt'];
+    for (let filename of blogFiles) {
+        try {
+            let res = await fetch(`blog/${filename}`);
+            if (res.ok) {
+                let text = await res.text();
+                let key = filename.toUpperCase();
+                fs["C:"].content["BLOG"].content[key] = {
+                    type: "file",
+                    content: text
+                };
+            }
+        } catch(e) {}
     }
+
+    const gameFiles = ['walkthrough.txt'];
+    for (let filename of gameFiles) {
+        try {
+            let res = await fetch(`games/${filename}`);
+            if (res.ok) {
+                let text = await res.text();
+                let key = filename.replace('.txt', '').toUpperCase() + ".TXT";
+                fs["C:"].content["GAMES"].content[key] = {
+                    type: "file",
+                    content: text
+                };
+            }
+        } catch(e) {}
+    }
+
     init();
 }
 
