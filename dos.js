@@ -473,7 +473,7 @@ function runHobbit() {
         },
         hallway: {
             title: "Hallway at Bag End",
-            desc: "A long tunnel-like hallway leading deeper into the smial.",
+            desc: "A long tunnel-like hallway leading deeper into the smial towards the larder.",
             exits: { west: "bagend", east: "larder" },
             items: ["WALKING STICK"]
         },
@@ -516,8 +516,32 @@ function runHobbit() {
         goblintunnels: {
             title: "Goblin Tunnels",
             desc: "Pitch black. Dripping water echoes. A strange creature named Gollum lurks near a subterranean lake.",
-            exits: { up: "mistymountains" },
+            exits: { up: "mistymountains", east: "mirkwood" },
             items: ["RING"]
+        },
+        mirkwood: {
+            title: "Mirkwood Forest",
+            desc: "Webs of giant spiders stretch across the gloom. Twisting paths lead deeper into the dark canopy.",
+            exits: { west: "goblintunnels", east: "laketown" },
+            items: ["BOW"]
+        },
+        laketown: {
+            title: "Lake-town (Esgaroth)",
+            desc: "Wooden houses built upon piles over the dark waters of Long Lake. The Master's halls stand proudly.",
+            exits: { west: "mirkwood", north: "lonelymountain" },
+            items: ["SPEAR"]
+        },
+        lonelymountain: {
+            title: "The Lonely Mountain (Erebor)",
+            desc: "The barren slopes of the Mountain. A secret door is set into the stone facade, waiting for the thrush and key.",
+            exits: { south: "laketown", enter: "smaug lair" },
+            items: ["ARKENSTONE"]
+        },
+        "smaug lair": {
+            title: "Smaug's Lair",
+            desc: "Mountains of glittering gold and jewels lie piled high. The great red dragon Smaug slumbers upon a bed of rubies, guarding his hoard!",
+            exits: { out: "lonelymountain" },
+            items: ["GOLDEN CUP"]
         }
     };
 
@@ -571,7 +595,7 @@ function processHobbitCommand(raw) {
     let loc = hobbitState.world[hobbitState.playerLoc];
 
     // Navigation
-    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
+    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "ENTER": "enter", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down", "IN": "enter" };
     if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
         let dirKey = directions[verb] || directions[parts[1]];
         if (loc.exits[dirKey]) {
