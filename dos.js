@@ -324,19 +324,13 @@ function processCommand(rawCmd) {
             break;
         case "MATRIX.EXE":
         case "MATRIX":
-            runMatrix();
-            break;
         case "DOOM.BAT":
         case "DOOM":
-            runDoom();
-            break;
         case "HACK.COM":
         case "HACK":
-            runHack();
-            break;
         case "HOBBIT.BAT":
         case "HOBBIT":
-            runHobbit();
+            printOutput("\nBad command or filename\n");
             break;
         default:
             // Check if file can be executed or typed (e.g. STATUS.BAT or STATUS)
@@ -346,10 +340,15 @@ function processCommand(rawCmd) {
                 let fileKey = dir[rawUpper] ? rawUpper : baseName;
                 let item = dir[fileKey];
                 if (item.type === "exec") {
-                    if (item.cmd === "matrix") runMatrix();
-                    if (item.cmd === "doom") runDoom();
-                    if (item.cmd === "hack") runHack();
-                    if (item.cmd === "hobbit") runHobbit();
+                    let isGamesDir = currentPath.length === 2 && currentPath[1] === "GAMES";
+                    if (isGamesDir) {
+                        if (item.cmd === "matrix") runMatrix();
+                        if (item.cmd === "doom") runDoom();
+                        if (item.cmd === "hack") runHack();
+                        if (item.cmd === "hobbit") runHobbit();
+                    } else {
+                        printOutput("\nBad command or filename\n");
+                    }
                 } else if (item.type === "file") {
                     printOutput("\n" + item.content + "\n");
                 }
@@ -361,18 +360,19 @@ function processCommand(rawCmd) {
 }
 
 function runMatrix() {
+    let bezel = document.querySelector(".monitor-bezel");
     let div = document.createElement("div");
     div.className = "matrix-screen";
     let canvas = document.createElement("canvas");
     canvas.className = "matrix-canvas";
     div.appendChild(canvas);
-    document.body.appendChild(div);
+    bezel.appendChild(div);
 
     let ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = bezel.clientWidth;
+    canvas.height = bezel.clientHeight;
 
-    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+    let letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺｿﾁﾄﾉﾎﾇﾔﾚﾛｦﾙﾎﾓﾘｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*+<>:-";
     let fontSize = 16;
     let columns = canvas.width / fontSize;
     let drops = [];
@@ -391,11 +391,23 @@ function runMatrix() {
         }
     }, 33);
 
-    div.addEventListener("click", () => {
+    let stopMatrix = () => {
         clearInterval(interval);
         div.remove();
+        document.removeEventListener("keydown", keyHandler);
         inputEl.focus();
+    };
+
+    let keyHandler = (e) => {
+        e.preventDefault();
+        stopMatrix();
+    };
+
+    div.addEventListener("click", () => {
+        stopMatrix();
     });
+
+    document.addEventListener("keydown", keyHandler);
 }
 
 function runDoom() {
