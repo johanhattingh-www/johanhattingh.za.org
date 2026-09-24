@@ -129,7 +129,7 @@ document.addEventListener("keydown", (e) => {
         inputEl.textContent = "";
 
         if (currentGameState === "DOS") {
-            printOutput(promptTextEl.textContent + " " + cmd);
+            printOutput(promptTextEl.textContent + cmd);
             processCommand(cmd);
         } else if (currentGameState === "HOBBIT") {
             printOutput("> " + cmd);
