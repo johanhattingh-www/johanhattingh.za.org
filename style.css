@@ -14,13 +14,28 @@ body {
 
 @media (max-height: 700px), (max-width: 900px) {
     body {
-        align-items: flex-start;
-        overflow-y: auto;
+        align-items: center;
+        overflow: hidden;
     }
     .monitor-casing {
-        transform: scale(0.6);
-        transform-origin: top center;
-        margin-top: 10px;
+        width: 100vw;
+        height: 100vh;
+        padding: 5px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .monitor-bezel {
+        width: 100% !important;
+        height: calc(100vh - 60px) !important;
+        border-width: 6px;
+        padding: 10px;
+    }
+    .monitor-brand, .monitor-panel {
+        display: none;
     }
 }
 
