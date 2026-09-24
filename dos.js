@@ -392,11 +392,23 @@ function runMatrix() {
         }
     }, 33);
 
-    div.addEventListener("click", () => {
+    let stopMatrix = () => {
         clearInterval(interval);
         div.remove();
+        document.removeEventListener("keydown", keyHandler);
         inputEl.focus();
+    };
+
+    let keyHandler = (e) => {
+        e.preventDefault();
+        stopMatrix();
+    };
+
+    div.addEventListener("click", () => {
+        stopMatrix();
     });
+
+    document.addEventListener("keydown", keyHandler);
 }
 
 function runDoom() {
