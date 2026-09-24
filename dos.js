@@ -372,7 +372,7 @@ function runMatrix() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+    let letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺｿﾁﾄﾉﾎﾇﾔﾚﾛｦﾙﾎﾓﾘｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*+<>:-";
     let fontSize = 16;
     let columns = canvas.width / fontSize;
     let drops = [];
