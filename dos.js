@@ -24,6 +24,14 @@ const fs = {
                     "STROKE.TXT": {
                         type: "file",
                         content: "Date: September 24, 2026\nSubject: The Physics of Stroke Recovery\n\nLiesl brought in a mug of tea while I was looking over a note from Sue about stroke recovery and the strange, altered way the world feels afterward.\n\nMedicine calls it functional healing, but the physics of it is entirely different. When blood flow stops, neurons lose their membrane potential in seconds, dumping calcium and glutamate into the tissue. The brain is not just resting; it undergoes a rapid thermodynamic collapse in the infarct core, while the surrounding penumbra hangs in silence.\n\nThen comes diaschisis—the sudden loss of electrical signals across connected networks that makes the whole brain feel shifted and strange. But beneath that shock, a remarkable recovery engine fires up. Surrounding tissue surges with BDNF, opening a window of childhood-level plasticity where the cortex literally redraws its own map millimeter by millimeter.\n\nEvery frustrating attempt to move or speak is not just exercise; it is Hebbian physics at work, reinforcing synapses through sheer demand. The altered state isn't a complication—it is the exact feeling of a brain rebuilding its own map from the inside out."
+                    },
+                    "APPETITE.TXT": {
+                        type: "file",
+                        content: "Date: September 24, 2026\nSubject: The Chemistry of Appetite\n\nLiesl brought in a fresh loaf of soda bread this morning while I was marking lab reports, slicing off a wedge and leaving the rest on the butcher block. Years ago, that loaf would have vanished piece by piece before I even noticed the crumbs on my sleeves. Now, the old background hum of appetite—that constant little radio playing in the back of the mind—just seems to have switched off.\n\nIt turns out our bodies have been whispering the same chemical message for decades through molecules like GLP-1, releasing them from the gut for barely two minutes before enzymes wipe them clean. Modern science didn't invent a new signal; it just engineered a stubborn copy that refuses to take down the sign.\n\nWhen a whisper is made to last for days, the nervous system adapts to the constant noise. But biology always collects its interest in the end, whether on the bathroom scale or in the quiet hours when the chemistry finally fades."
+                    },
+                    "SUN.TXT": {
+                        type: "file",
+                        content: "Date: September 24, 2026\nSubject: The Sun and the Screen Door\n\nI was out behind the garage yesterday, scraping a rusty old spade with a wire brush while the midday sun hit the brick wall, when Liesl brought me a mug of black coffee and just stood there watching me squint against the glare. People spend half their lives indoors now, sweating over every ray of light like it's radioactive, when the whole panic started from missing the simple difference between a steady, moderate dose and getting scorched on a weekend beach trip.\n\nOutdoor workers get less melanoma than office folks because their skin builds up its own repair crews through daily contact. But somewhere along the line, public health took a sledgehammer to common sense and turned a timing problem into a total ban. A light box or a red-light panel on the nightstand might sell you one isolated frequency for a hefty price tag, but it can't touch what you get for free by stepping past the door frame for ten minutes with your sleeves rolled up.\n\nThe sun isn't an enemy lying in wait; it's the main circuit the whole machine was wired into. The full spectrum is waiting right outside the screen door. All it takes is sitting on the back step instead of the kitchen chair."
                     }
                 }
             },
@@ -109,37 +117,6 @@ function printOutput(text) {
 }
 
 async function initFilesystem() {
-    // Automatically discover and load all text files from blog/ and games/ folders
-    const blogFiles = ['today.txt', 'archives.txt', 'stroke.txt', 'appetite.txt', 'sun.txt'];
-    for (let filename of blogFiles) {
-        try {
-            let res = await fetch(`./blog/${filename}`);
-            if (res.ok) {
-                let text = await res.text();
-                let key = filename.toUpperCase();
-                fs["C:"].content["BLOG"].content[key] = {
-                    type: "file",
-                    content: text
-                };
-            }
-        } catch(e) {}
-    }
-
-    const gameFiles = ['walkthrough.txt'];
-    for (let filename of gameFiles) {
-        try {
-            let res = await fetch(`./games/${filename}`);
-            if (res.ok) {
-                let text = await res.text();
-                let key = filename.replace('.txt', '').toUpperCase() + ".TXT";
-                fs["C:"].content["GAMES"].content[key] = {
-                    type: "file",
-                    content: text
-                };
-            }
-        } catch(e) {}
-    }
-
     init();
 }
 
