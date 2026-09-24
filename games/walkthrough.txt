@@ -1,0 +1,46 @@
+THE HOBBIT - OFFICIAL WALKTHROUGH & SOLUTION GUIDE
+
+Welcome, adventurous burglar! To complete your epic journey from Bag End to Smaug's Lair, follow these steps precisely:
+
+1. BAG END & HOBBITON
+   - LOOK
+   - TAKE RING
+   - TAKE LETTER
+   - EAST (to hallway)
+   - TAKE WALKING STICK
+   - EAST (to larder)
+   - TAKE PIE
+   - WEST
+   - WEST (back to Bag End)
+   - OUT (to Hobbiton)
+   - TALK THORIN (or ASK THORIN ABOUT KEY)
+   - TAKE MAP
+
+2. THE ROAD & TROLLSHAWS
+   - NORTH (to Dusty Road)
+   - EAST (to Trollshaws)
+   - TAKE KEY
+   - TAKE PURSE
+
+3. RIVENDELL & THE MOUNTAINS
+   - EAST (to Rivendell)
+   - TAKE BLADE
+   - TAKE SHIELD
+   - EAST (to Misty Mountains)
+   - DOWN (into Goblin Tunnels)
+
+4. GOLLUM'S CAVE & MIRKWOOD
+   - TAKE RING (if not already taken)
+   - EAST (to Mirkwood)
+   - TAKE BOW
+   - EAST (to Lake-town)
+   - TAKE SPEAR
+
+5. EREBOR & SMAUG'S LAIR
+   - NORTH (to Lonely Mountain)
+   - TAKE ARKENSTONE
+   - ENTER (into Smaug's Lair)
+   - TAKE GOLDEN CUP
+
+VICTORY!
+You have successfully looted Smaug's hoard and completed your quest. Return to your armchair at Bag End as a wealthy and legendary hobbit!
