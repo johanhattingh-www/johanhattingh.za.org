@@ -20,6 +20,10 @@ const fs = {
                     "ARCHIVES.TXT": {
                         type: "file",
                         content: "BLOG ARCHIVES:\n- 2026-08-15: Setting up Cloudflare DNS with GitHub Pages\n- 2026-07-01: Why Retro Computing Inspires Modern Engineering\n- 2026-06-10: Hello World from www.johanhattingh.za.org"
+                    },
+                    "STROKE.TXT": {
+                        type: "file",
+                        content: "Date: September 24, 2026\nSubject: The Physics of Stroke Recovery\n\nLiesl brought in a mug of tea while I was looking over a note from Sue about stroke recovery and the strange, altered way the world feels afterward.\n\nMedicine calls it functional healing, but the physics of it is entirely different. When blood flow stops, neurons lose their membrane potential in seconds, dumping calcium and glutamate into the tissue. The brain is not just resting; it undergoes a rapid thermodynamic collapse in the infarct core, while the surrounding penumbra hangs in silence.\n\nThen comes diaschisis—the sudden loss of electrical signals across connected networks that makes the whole brain feel shifted and strange. But beneath that shock, a remarkable recovery engine fires up. Surrounding tissue surges with BDNF, opening a window of childhood-level plasticity where the cortex literally redraws its own map millimeter by millimeter.\n\nEvery frustrating attempt to move or speak is not just exercise; it is Hebbian physics at work, reinforcing synapses through sheer demand. The altered state isn't a complication—it is the exact feeling of a brain rebuilding its own map from the inside out."
                     }
                 }
             },
@@ -110,6 +114,8 @@ async function initFilesystem() {
         if (res.ok) fs["C:"].content["BLOG"].content["TODAY.TXT"].content = await res.text();
         let res2 = await fetch('blog/archives.txt');
         if (res2.ok) fs["C:"].content["BLOG"].content["ARCHIVES.TXT"].content = await res2.text();
+        let resStroke = await fetch('blog/stroke.txt');
+        if (resStroke.ok) fs["C:"].content["BLOG"].content["STROKE.TXT"].content = await resStroke.text();
         let res3 = await fetch('games/walkthrough.txt');
         if (res3.ok) fs["C:"].content["GAMES"].content["WALKTHRU.TXT"].content = await res3.text();
     } catch(e) {
