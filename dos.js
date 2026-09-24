@@ -265,6 +265,26 @@ function processCommand(rawCmd) {
                 updatePrompt();
                 break;
             }
+            if (argStr.toUpperCase().startsWith("C:\\")) {
+                let subPath = argStr.toUpperCase().replace("C:\\", "").split("\\").filter(Boolean);
+                let valid = true;
+                let curr = fs["C:"];
+                for (let p of subPath) {
+                    if (curr[p] && curr[p].type === "dir") {
+                        curr = curr[p].content;
+                    } else {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid) {
+                    currentPath = ["C:"].concat(subPath);
+                    updatePrompt();
+                } else {
+                    printOutput("\nInvalid directory path.\n");
+                }
+                break;
+            }
             let target = argStr.toUpperCase();
             if (dir[target] && dir[target].type === "dir") {
                 currentPath.push(target);
@@ -319,11 +339,20 @@ function processCommand(rawCmd) {
             runHobbit();
             break;
         default:
-            if (dir[cmd] && dir[cmd].type === "exec") {
-                if (dir[cmd].cmd === "matrix") runMatrix();
-                if (dir[cmd].cmd === "doom") runDoom();
-                if (dir[cmd].cmd === "hack") runHack();
-                if (dir[cmd].cmd === "hobbit") runHobbit();
+            // Check if file can be executed or typed (e.g. STATUS.BAT or STATUS)
+            let rawUpper = rawCmd.toUpperCase();
+            let baseName = rawUpper.replace(/\.(BAT|EXE|COM|TXT)$/, "");
+            if (dir[rawUpper] || dir[baseName]) {
+                let fileKey = dir[rawUpper] ? rawUpper : baseName;
+                let item = dir[fileKey];
+                if (item.type === "exec") {
+                    if (item.cmd === "matrix") runMatrix();
+                    if (item.cmd === "doom") runDoom();
+                    if (item.cmd === "hack") runHack();
+                    if (item.cmd === "hobbit") runHobbit();
+                } else if (item.type === "file") {
+                    printOutput("\n" + item.content + "\n");
+                }
             } else {
                 printOutput("\nBad command or filename: " + rawCmd + "\n");
             }
