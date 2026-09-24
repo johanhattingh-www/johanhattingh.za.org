@@ -5,22 +5,22 @@ body {
     font-size: 22px;
     line-height: 1.2;
     overflow: hidden;
-    min-height: 100vh;
+    height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-@media (max-height: 700px) {
+@media (max-height: 700px), (max-width: 900px) {
     body {
         align-items: flex-start;
         overflow-y: auto;
     }
     .monitor-casing {
-        transform: scale(0.8);
+        transform: scale(0.6);
         transform-origin: top center;
-        margin-top: 5px;
+        margin-top: 10px;
     }
 }
 
