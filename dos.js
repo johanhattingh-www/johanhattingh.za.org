@@ -49,6 +49,12 @@ const fs = {
     }
 };
 
+let currentPath = ["C:"];
+let inputEl = document.getElementById("command-input");
+let outputEl = document.getElementById("output");
+let promptTextEl = document.getElementById("prompt-text");
+let terminalEl = document.getElementById("terminal");
+
 let isRunningProgram = false;
 
 function setPromptVisible(visible) {
