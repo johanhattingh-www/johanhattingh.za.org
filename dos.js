@@ -331,7 +331,15 @@ function processCommand(rawCmd) {
         case "HACK":
         case "HOBBIT.BAT":
         case "HOBBIT":
-            printOutput("\nBad command or filename\n");
+            let isGamesDir = currentPath.length === 2 && currentPath[1] === "GAMES";
+            if (isGamesDir) {
+                if (cmd.includes("MATRIX")) runMatrix();
+                else if (cmd.includes("DOOM")) runDoom();
+                else if (cmd.includes("HACK")) runHack();
+                else if (cmd.includes("HOBBIT")) runHobbit();
+            } else {
+                printOutput("\nBad command or filename\n");
+            }
             break;
         default:
             // Check if file can be executed or typed (e.g. STATUS.BAT or STATUS)
