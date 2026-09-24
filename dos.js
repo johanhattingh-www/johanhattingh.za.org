@@ -32,10 +32,6 @@ const fs = {
                     "SUN.TXT": {
                         type: "file",
                         content: "Date: September 24, 2026\nSubject: The Sun and the Screen Door\n\nI was out behind the garage yesterday, scraping a rusty old spade with a wire brush while the midday sun hit the brick wall, when Liesl brought me a mug of black coffee and just stood there watching me squint against the glare. People spend half their lives indoors now, sweating over every ray of light like it's radioactive, when the whole panic started from missing the simple difference between a steady, moderate dose and getting scorched on a weekend beach trip.\n\nOutdoor workers get less melanoma than office folks because their skin builds up its own repair crews through daily contact. But somewhere along the line, public health took a sledgehammer to common sense and turned a timing problem into a total ban. A light box or a red-light panel on the nightstand might sell you one isolated frequency for a hefty price tag, but it can't touch what you get for free by stepping past the door frame for ten minutes with your sleeves rolled up.\n\nThe sun isn't an enemy lying in wait; it's the main circuit the whole machine was wired into. The full spectrum is waiting right outside the screen door. All it takes is sitting on the back step instead of the kitchen chair."
-                    },
-                    "BOREHOLE.TXT": {
-                        type: "file",
-                        content: "Date: September 24, 2026\nSubject: The Borehole and the Event Horizon\n\nWian dropped a shiny ten-cent coin down the borehole pipe at the back of the garage last year, then knelt on the concrete with his ear pressed to the casing, waiting for the clink that never came. He stayed there so long Liesl eventually had to haul him up by the belt of his shorts. He wanted to know where the coin was right now.\n\nI told him it was still falling.\n\nIf you fall into a supermassive black hole, the strange part is how ordinary the crossing is. You don't hit a wall. You don't trip a wire. The event horizon is just a boundary where gravity bends every path inward, but locally, your watch ticks one second every second and your coffee stays in the mug. You pass the point of no return without feeling a bump.\n\nSomeone watching you from a deck chair in the Karoo sees a completely different afternoon. To them, the light climbing out of that gravity well stretches and redshifts. Your watch slows down. You crawl toward the edge, getting dimmer and redder, until you appear frozen at the rim forever.\n\nBoth versions are true. Inside the horizon, space and time swap jobs: the center isn't a location in space you can steer around, it is a Tuesday in your calendar you cannot prevent from arriving.\n\nHonest caveat: if the black hole is small, tidal forces stretch you into spaghetti before you even reach the threshold. I prefer the big ones. At least with a giant, you get to cross in peace before the mathematics runs out of answers.\n\nWian still checks that pipe when he walks past. The coin is gone, but the mystery stays right at the lip."
                     }
                 }
             },
@@ -75,7 +71,7 @@ let outputEl = document.getElementById("output");
 let promptTextEl = document.getElementById("prompt-text");
 let terminalEl = document.getElementById("terminal");
 
-let activePager = null; // { lines: [], currentIndex: 0 }
+let currentGameState = "DOS"; // "DOS" or "HOBBIT"
 let hobbitState = null;
 let isRunningProgram = false;
 
@@ -120,19 +116,6 @@ function printOutput(text) {
     terminalEl.scrollTop = terminalEl.scrollHeight;
 }
 
-function printPagerChunk() {
-    let chunkSize = 18;
-    let chunk = activePager.lines.slice(activePager.currentIndex, activePager.currentIndex + chunkSize).join("\n");
-    printOutput(chunk);
-    activePager.currentIndex += chunkSize;
-    if (activePager.currentIndex < activePager.lines.length) {
-        printOutput("\n--- Press ENTER to continue, or Q to quit ---");
-    } else {
-        activePager = null;
-        printOutput("");
-    }
-}
-
 async function initFilesystem() {
     init();
 }
@@ -152,17 +135,6 @@ document.addEventListener("keydown", (e) => {
         e.preventDefault();
         let cmd = inputEl.textContent.trim();
         inputEl.textContent = "";
-
-        if (activePager) {
-            if (cmd.toUpperCase() === "Q") {
-                activePager = null;
-                printOutput("\n");
-            } else {
-                printPagerChunk();
-            }
-            terminalEl.scrollTop = terminalEl.scrollHeight;
-            return;
-        }
 
         if (currentGameState === "DOS") {
             printOutput(promptTextEl.textContent + cmd);
@@ -198,11 +170,11 @@ function processCommand(rawCmd) {
             printOutput("\nCurrent time is " + new Date().toTimeString().split(' ')[0] + "\n");
             break;
         case "HELP":
-            let helpFile = fs["C:"].content["HELP.TXT"];
-            if (helpFile && helpFile.content) {
-                printOutput("\n" + helpFile.content + "\n");
+            if (dir["HELP.TXT"]) {
+                printOutput("\n" + dir["HELP.TXT"].content + "\n");
             } else {
-                printOutput("\nAVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory (e.g. CD BLOG)\n  CD \\             Return to root directory\n  TYPE <file>      Display contents of a text file (e.g. TYPE TODAY.TXT)\n  CLS              Clear screen\n  MODE CO80        Switch to standard color 80-column mode\n  MODE CO40        Switch to wide 40-column text mode\n  MODE MONO        Switch to monochrome green phosphor mode\n  MODE AMBER       Switch to amber phosphor mode\n  DATE             Display current system date\n  TIME             Display current system time\n  VER              Display MS-DOS version\n  MATRIX.EXE       Run digital rain screensaver\n  DOOM.BAT         Play classic retro text battle\n  HACK.COM         Launch mainframe penetration tool\n");
+                let rootDir = fs["C:"];
+                printOutput("\n" + rootDir["HELP.TXT"].content + "\n");
             }
             break;
         case "MEM":
@@ -271,21 +243,18 @@ function processCommand(rawCmd) {
             printOutput("\n Directory of " + currentPath.join("\\") + (currentPath.length === 1 ? "\\" : ""));
             let count = 0;
             let bytes = 0;
-            let fileCount = 0;
             for (let name in dir) {
                 let item = dir[name];
-                let dateStr = "09-24-26  12:00p";
                 if (item.type === "dir") {
-                    printOutput(dateStr + "    <DIR>        " + name);
+                    printOutput(String("       <DIR>").padStart(14, ' ') + "   " + name);
                 } else {
                     let size = item.content ? item.content.length : 128;
                     bytes += size;
-                    fileCount++;
-                    printOutput(dateStr + "    " + String(size).padStart(9, ' ') + "   " + name);
+                    printOutput(String(size).padStart(14, ' ') + "   " + name);
                 }
                 count++;
             }
-            printOutput(String(fileCount).padStart(6, ' ') + " File(s)       " + bytes + " bytes");
+            printOutput(String(count).padStart(6, ' ') + " File(s)       " + bytes + " bytes");
             printOutput("       0 Dir(s)  1,457,664 bytes free\n");
             break;
         case "CD":
@@ -340,14 +309,7 @@ function processCommand(rawCmd) {
             }
             let filename = argStr.toUpperCase();
             if (dir[filename] && dir[filename].type === "file") {
-                let textContent = "\n" + dir[filename].content + "\n";
-                let lines = textContent.split("\n");
-                if (lines.length > 20) {
-                    activePager = { lines: lines, currentIndex: 0 };
-                    printPagerChunk();
-                } else {
-                    printOutput(textContent);
-                }
+                printOutput("\n" + dir[filename].content + "\n");
             } else {
                 printOutput("\nFile not found - " + filename + "\n");
             }
