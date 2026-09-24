@@ -8,7 +8,7 @@ const fs = {
             },
             "HELP.TXT": {
                 type: "file",
-                content: "AVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory (e.g. CD BLOG)\n  CD \\             Return to root directory\n  TYPE <file>      Display contents of a text file (e.g. TYPE TODAY.TXT)\n  CLS              Clear screen\n  MODE CO80        Switch to standard color 80-column mode\n  MODE CO40        Switch to wide 40-column text mode\n  MODE MONO        Switch to monochrome green phosphor mode\n  MODE AMBER       Switch to amber phosphor mode\n  DATE             Display current system date\n  TIME             Display current system time\n  VER              Display MS-DOS version\n  MATRIX.EXE       Run digital rain screensaver\n  DOOM.BAT         Play classic retro text battle\n  HACK.COM         Launch mainframe penetration tool"
+                content: "AVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory (e.g. CD GAMES)\n  CD \\             Return to root directory\n  TYPE <file>      Display contents of a text file\n  CLS              Clear screen\n  MODE CO80 / CO40 / MONO / AMBER\n  DATE / TIME / VER / MEM / CHKDSK\n\nNOTE: To play games or tools like MATRIX, DOOM, HACK, or HOBBIT,\nplease change directory into C:\\GAMES (CD GAMES) and run them from there."
             },
             "BLOG": {
                 type: "dir",
@@ -328,19 +328,13 @@ function processCommand(rawCmd) {
             break;
         case "MATRIX.EXE":
         case "MATRIX":
-            runMatrix();
-            break;
         case "DOOM.BAT":
         case "DOOM":
-            runDoom();
-            break;
         case "HACK.COM":
         case "HACK":
-            runHack();
-            break;
         case "HOBBIT.BAT":
         case "HOBBIT":
-            runHobbit();
+            printOutput("\nBad command or filename - program must be run from C:\\GAMES directory.\n");
             break;
         default:
             // Check if file can be executed or typed (e.g. STATUS.BAT or STATUS)
@@ -350,10 +344,15 @@ function processCommand(rawCmd) {
                 let fileKey = dir[rawUpper] ? rawUpper : baseName;
                 let item = dir[fileKey];
                 if (item.type === "exec") {
-                    if (item.cmd === "matrix") runMatrix();
-                    if (item.cmd === "doom") runDoom();
-                    if (item.cmd === "hack") runHack();
-                    if (item.cmd === "hobbit") runHobbit();
+                    let isGamesDir = currentPath.length === 2 && currentPath[1] === "GAMES";
+                    if (isGamesDir) {
+                        if (item.cmd === "matrix") runMatrix();
+                        if (item.cmd === "doom") runDoom();
+                        if (item.cmd === "hack") runHack();
+                        if (item.cmd === "hobbit") runHobbit();
+                    } else {
+                        printOutput("\nBad command or filename - program must be run from C:\\GAMES directory.\n");
+                    }
                 } else if (item.type === "file") {
                     printOutput("\n" + item.content + "\n");
                 }
