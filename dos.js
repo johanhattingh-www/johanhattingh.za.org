@@ -41,7 +41,8 @@ const fs = {
                 content: {
                     "MATRIX.EXE": { type: "exec", cmd: "matrix" },
                     "DOOM.BAT": { type: "exec", cmd: "doom" },
-                    "HACK.COM": { type: "exec", cmd: "hack" }
+                    "HACK.COM": { type: "exec", cmd: "hack" },
+                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit" }
                 }
             }
         }
@@ -295,11 +296,16 @@ function processCommand(rawCmd) {
         case "HACK":
             runHack();
             break;
+        case "HOBBIT.BAT":
+        case "HOBBIT":
+            runHobbit();
+            break;
         default:
             if (dir[cmd] && dir[cmd].type === "exec") {
                 if (dir[cmd].cmd === "matrix") runMatrix();
                 if (dir[cmd].cmd === "doom") runDoom();
                 if (dir[cmd].cmd === "hack") runHack();
+                if (dir[cmd].cmd === "hobbit") runHobbit();
             } else {
                 printOutput("\nBad command or filename: " + rawCmd + "\n");
             }
@@ -391,6 +397,201 @@ function runHack() {
             document.addEventListener("keydown", keyHandler);
         }
     }, 800);
+}
+
+function runHobbit() {
+    setPromptVisible(false);
+    printOutput("\nTHE HOBBIT - Melbourne House (1982 / MS-DOS Edition)");
+    printOutput("Inspired by J.R.R. Tolkien. Powered by INGRID Parser.");
+    printOutput("Type commands like 'GO NORTH', 'EXAMINE HOLE', 'TAKE RING', 'ASK THORIN ABOUT KEY', or 'QUIT'.\n");
+
+    const world = {
+        bagend: {
+            title: "Bag End - Bilbo's Comfortable Hole",
+            desc: "You are in a comfortable round hall like a tunnel, painted green, with polished doors and chairs. A brass peg is for hats and coats. Gandalf stands here smoking his pipe.",
+            exits: { east: "hallway", out: "hobbiton" },
+            items: ["RING", "LETTER"]
+        },
+        hallway: {
+            title: "Hallway at Bag End",
+            desc: "A long tunnel-like hallway leading deeper into the smial.",
+            exits: { west: "bagend", east: "larder" },
+            items: ["WALKING STICK"]
+        },
+        larder: {
+            title: "The Larder",
+            desc: "Shelves are laden with provisions, jars of honey, and bottled wine.",
+            exits: { west: "hallway" },
+            items: ["WINE", "PIE"]
+        },
+        hobbiton: {
+            title: "Hobbiton Across the Water",
+            desc: "Green grass, sunny skies, and the Hill rising behind you. Thorin Oakenshield is waiting here with his dwarf companions.",
+            exits: { west: "bagend", north: "road", east: "wild" },
+            items: ["MAP"]
+        },
+        road: {
+            title: "The Dusty Road",
+            desc: "The road winds away eastward toward the Misty Mountains and adventure.",
+            exits: { south: "hobbiton", east: "trollshaws" },
+            items: []
+        },
+        trollshaws: {
+            title: "The Trollshaws",
+            desc: "Dark, gloomy woods. Three massive stone statues loom nearby. A cold campfire smells of burnt mutton.",
+            exits: { west: "road", east: "rivendell" },
+            items: ["KEY", "PURSE"]
+        },
+        rivendell: {
+            title: "Rivendell - The Last Homely House",
+            desc: "Elven songs fill the air. Elrond sits in council. The air is sweet and cool.",
+            exits: { west: "trollshaws", east: "mistymountains" },
+            items: ["BLADE", "SHIELD"]
+        },
+        mistymountains: {
+            title: "Misty Mountains Pass",
+            desc: "Wind howls across freezing crags. Goblin tunnels gape darkly into the rock face.",
+            exits: { west: "rivendell", down: "goblintunnels" },
+            items: []
+        },
+        goblintunnels: {
+            title: "Goblin Tunnels",
+            desc: "Pitch black. Dripping water echoes. A strange creature named Gollum lurks near a subterranean lake.",
+            exits: { up: "mistymountains" },
+            items: ["RING"]
+        }
+    };
+
+    let playerLoc = "bagend";
+    let inventory = [];
+    let score = 0;
+    let gameActive = true;
+
+    function describeCurrentLoc() {
+        let loc = world[playerLoc];
+        printOutput("\n--- " + loc.title + " ---");
+        printOutput(loc.desc);
+        
+        if (loc.items.length > 0) {
+            printOutput("You see here: " + loc.items.join(", "));
+        }
+        
+        let exitList = Object.keys(loc.exits).join(", ");
+        printOutput("Exits: [" + exitList + "]");
+    }
+
+    describeCurrentLoc();
+    printOutput("\n> ");
+
+    let hobbitInputHandler = (e) => {
+        if (!gameActive) return;
+        
+        if (e.key === "Enter") {
+            e.preventDefault();
+            let raw = inputEl.textContent.trim();
+            printOutput("> " + raw);
+            inputEl.textContent = "";
+
+            let cmd = raw.toUpperCase();
+            let parts = cmd.split(/\s+/);
+            let verb = parts[0];
+            let obj = parts.slice(1).join(" ");
+
+            if (verb === "QUIT" || verb === "EXIT") {
+                printOutput("\nYou abandon your quest and return to your armchair. Game Over.");
+                cleanup();
+                return;
+            }
+
+            if (verb === "INVENTORY" || verb === "I") {
+                printOutput(inventory.length > 0 ? "You are carrying: " + inventory.join(", ") : "You are carrying nothing.");
+                printOutput("\n> ");
+                return;
+            }
+
+            if (verb === "LOOK" || verb === "L") {
+                describeCurrentLoc();
+                printOutput("\n> ");
+                return;
+            }
+
+            let loc = world[playerLoc];
+
+            // Navigation
+            let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
+            if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
+                let dirKey = directions[verb] || directions[parts[1]];
+                if (loc.exits[dirKey]) {
+                    playerLoc = loc.exits[dirKey];
+                    score += 5;
+                    describeCurrentLoc();
+                } else {
+                    printOutput("You cannot go that way.");
+                }
+                printOutput("\n> ");
+                return;
+            }
+
+            // Take item
+            if (verb === "TAKE" || verb === "GET") {
+                let idx = loc.items.indexOf(obj);
+                if (idx !== -1) {
+                    loc.items.splice(idx, 1);
+                    inventory.push(obj);
+                    score += 10;
+                    printOutput("Taken.");
+                } else {
+                    printOutput("You don't see that here.");
+                }
+                printOutput("\n> ");
+                return;
+            }
+
+            // Drop item
+            if (verb === "DROP") {
+                let idx = inventory.indexOf(obj);
+                if (idx !== -1) {
+                    inventory.splice(idx, 1);
+                    loc.items.push(obj);
+                    printOutput("Dropped.");
+                } else {
+                    printOutput("You aren't carrying that.");
+                }
+                printOutput("\n> ");
+                return;
+            }
+
+            // INGRID Parser (ASK / TALK / UNLOCK / EXAMINE)
+            if (verb === "EXAMINE" || verb === "LOOK" || verb === "X") {
+                printOutput("It looks quite interesting and peculiarly useful for an adventurous hobbit.");
+                printOutput("\n> ");
+                return;
+            }
+
+            if (verb === "ASK" || verb === "TALK") {
+                if (cmd.includes("GANDALF")) {
+                    printOutput("Gandalf puffs his pipe and mutters: 'Courage is found in unlikely places, Bilbo.'");
+                } else if (cmd.includes("THORIN")) {
+                    printOutput("Thorin Oakenshield grunts: 'To the Mountain we must go! Find the secret door!'");
+                } else {
+                    printOutput("They have nothing to say about that.");
+                }
+                printOutput("\n> ");
+                return;
+            }
+
+            printOutput("The INGRID parser does not understand '" + raw + "'. Try directions (NORTH, SOUTH...), TAKE <item>, INVENTORY, or ASK THORIN ABOUT KEY.");
+            printOutput("\n> ");
+        }
+    };
+
+    let cleanup = () => {
+        gameActive = false;
+        document.removeEventListener("keydown", hobbitInputHandler);
+        setPromptVisible(true);
+    };
+
+    document.addEventListener("keydown", hobbitInputHandler);
 }
 
 window.onload = init;
