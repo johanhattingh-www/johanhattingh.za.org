@@ -361,16 +361,17 @@ function processCommand(rawCmd) {
 }
 
 function runMatrix() {
+    let bezel = document.querySelector(".monitor-bezel");
     let div = document.createElement("div");
     div.className = "matrix-screen";
     let canvas = document.createElement("canvas");
     canvas.className = "matrix-canvas";
     div.appendChild(canvas);
-    document.body.appendChild(div);
+    bezel.appendChild(div);
 
     let ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = bezel.clientWidth;
+    canvas.height = bezel.clientHeight;
 
     let letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺｿﾁﾄﾉﾎﾇﾔﾚﾛｦﾙﾎﾓﾘｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*+<>:-";
     let fontSize = 16;
