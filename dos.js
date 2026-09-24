@@ -55,7 +55,8 @@ let outputEl = document.getElementById("output");
 let promptTextEl = document.getElementById("prompt-text");
 let terminalEl = document.getElementById("terminal");
 
-let isRunningProgram = false;
+let currentGameState = "DOS"; // "DOS" or "HOBBIT"
+let hobbitState = null;
 
 function setPromptVisible(visible) {
     let promptLine = document.getElementById("prompt-line");
@@ -120,9 +121,15 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
         e.preventDefault();
         let cmd = inputEl.textContent.trim();
-        printOutput(promptTextEl.textContent + " " + cmd);
         inputEl.textContent = "";
-        processCommand(cmd);
+
+        if (currentGameState === "DOS") {
+            printOutput(promptTextEl.textContent + " " + cmd);
+            processCommand(cmd);
+        } else if (currentGameState === "HOBBIT") {
+            printOutput("> " + cmd);
+            processHobbitCommand(cmd);
+        }
         terminalEl.scrollTop = terminalEl.scrollHeight;
     }
 });
@@ -406,7 +413,6 @@ function runHack() {
 }
 
 function runHobbit() {
-    setPromptVisible(false);
     printOutput("\nTHE HOBBIT - Melbourne House (1982 / MS-DOS Edition)");
     printOutput("Inspired by J.R.R. Tolkien. Powered by INGRID Parser.");
     printOutput("Type commands like 'GO NORTH', 'EXAMINE HOLE', 'TAKE RING', 'ASK THORIN ABOUT KEY', or 'QUIT'.\n");
@@ -468,136 +474,29 @@ function runHobbit() {
         }
     };
 
-    let playerLoc = "bagend";
-    let inventory = [];
-    let score = 0;
-    let gameActive = true;
-
-    function describeCurrentLoc() {
-        let loc = world[playerLoc];
-        printOutput("\n--- " + loc.title + " ---");
-        printOutput(loc.desc);
-        
-        if (loc.items.length > 0) {
-            printOutput("You see here: " + loc.items.join(", "));
-        }
-        
-        let exitList = Object.keys(loc.exits).join(", ");
-        printOutput("Exits: [" + exitList + "]");
-    }
-
-    describeCurrentLoc();
-    printOutput("\n> ");
-
-    let hobbitInputHandler = (e) => {
-        if (!gameActive) return;
-        
-        if (e.key === "Enter") {
-            e.preventDefault();
-            let raw = inputEl.textContent.trim();
-            printOutput("> " + raw);
-            inputEl.textContent = "";
-
-            let cmd = raw.toUpperCase();
-            let parts = cmd.split(/\s+/);
-            let verb = parts[0];
-            let obj = parts.slice(1).join(" ");
-
-            if (verb === "QUIT" || verb === "EXIT") {
-                printOutput("\nYou abandon your quest and return to your armchair. Game Over.");
-                cleanup();
-                setPromptVisible(true);
-                return;
+    hobbitState = {
+        world: world,
+        playerLoc: "bagend",
+        inventory: [],
+        score: 0,
+        describeCurrentLoc: function() {
+            let loc = this.world[this.playerLoc];
+            printOutput("\n--- " + loc.title + " ---");
+            printOutput(loc.desc);
+            if (loc.items.length > 0) {
+                printOutput("You see here: " + loc.items.join(", "));
             }
-
-            if (verb === "INVENTORY" || verb === "I") {
-                printOutput(inventory.length > 0 ? "You are carrying: " + inventory.join(", ") : "You are carrying nothing.");
-                printOutput("\n> ");
-                return;
-            }
-
-            if (verb === "LOOK" || verb === "L") {
-                describeCurrentLoc();
-                printOutput("\n> ");
-                return;
-            }
-
-            let loc = world[playerLoc];
-
-            // Navigation
-            let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
-            if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
-                let dirKey = directions[verb] || directions[parts[1]];
-                if (loc.exits[dirKey]) {
-                    playerLoc = loc.exits[dirKey];
-                    score += 5;
-                    describeCurrentLoc();
-                } else {
-                    printOutput("You cannot go that way.");
-                }
-                printOutput("\n> ");
-                return;
-            }
-
-            // Take item
-            if (verb === "TAKE" || verb === "GET") {
-                let idx = loc.items.indexOf(obj);
-                if (idx !== -1) {
-                    loc.items.splice(idx, 1);
-                    inventory.push(obj);
-                    score += 10;
-                    printOutput("Taken.");
-                } else {
-                    printOutput("You don't see that here.");
-                }
-                printOutput("\n> ");
-                return;
-            }
-
-            // Drop item
-            if (verb === "DROP") {
-                let idx = inventory.indexOf(obj);
-                if (idx !== -1) {
-                    inventory.splice(idx, 1);
-                    loc.items.push(obj);
-                    printOutput("Dropped.");
-                } else {
-                    printOutput("You aren't carrying that.");
-                }
-                printOutput("\n> ");
-                return;
-            }
-
-            // INGRID Parser (ASK / TALK / UNLOCK / EXAMINE)
-            if (verb === "EXAMINE" || verb === "LOOK" || verb === "X") {
-                printOutput("It looks quite interesting and peculiarly useful for an adventurous hobbit.");
-                printOutput("\n> ");
-                return;
-            }
-
-            if (verb === "ASK" || verb === "TALK") {
-                if (cmd.includes("GANDALF")) {
-                    printOutput("Gandalf puffs his pipe and mutters: 'Courage is found in unlikely places, Bilbo.'");
-                } else if (cmd.includes("THORIN")) {
-                    printOutput("Thorin Oakenshield grunts: 'To the Mountain we must go! Find the secret door!'");
-                } else {
-                    printOutput("They have nothing to say about that.");
-                }
-                printOutput("\n> ");
-                return;
-            }
-
-            printOutput("The INGRID parser does not understand '" + raw + "'. Try directions (NORTH, SOUTH...), TAKE <item>, INVENTORY, or ASK THORIN ABOUT KEY.");
-            printOutput("\n> ");
+            let exitList = Object.keys(loc.exits).join(", ");
+            printOutput("Exits: [" + exitList + "]");
         }
     };
 
-    let cleanup = () => {
-        gameActive = false;
-        document.removeEventListener("keydown", hobbitInputHandler);
-    };
-
-    document.addEventListener("keydown", hobbitInputHandler);
+    hobbitState.describeCurrentLoc();
+    currentGameState = "HOBBIT";
+    promptTextEl.textContent = "HOBBIT>";
+    printOutput("");
+}
+    printOutput("\n[HOBBIT> ");
 }
 
 window.onload = init;
