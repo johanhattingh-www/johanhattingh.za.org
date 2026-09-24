@@ -42,7 +42,11 @@ const fs = {
                     "MATRIX.EXE": { type: "exec", cmd: "matrix" },
                     "DOOM.BAT": { type: "exec", cmd: "doom" },
                     "HACK.COM": { type: "exec", cmd: "hack" },
-                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit" }
+                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit" },
+                    "WALKTHRU.TXT": {
+                        type: "file",
+                        content: "THE HOBBIT - OFFICIAL WALKTHROUGH & SOLUTION GUIDE\n\n1. Bag End: TAKE RING, TAKE LETTER, EAST, TAKE WALKING STICK, EAST, TAKE PIE, WEST, WEST, OUT (Hobbiton).\n2. Hobbiton: TAKE MAP, NORTH (Road), EAST (Trollshaws).\n3. Trollshaws: TAKE KEY, TAKE PURSE, EAST (Rivendell).\n4. Rivendell: TAKE BLADE, TAKE SHIELD, EAST (Misty Mountains), DOWN (Goblin Tunnels).\n5. Goblin Tunnels: EAST (Mirkwood), TAKE BOW, EAST (Lake-town), TAKE SPEAR.\n6. Lake-town: NORTH (Lonely Mountain), TAKE ARKENSTONE, ENTER (Smaug's Lair), TAKE GOLDEN CUP.\n\nVictory!"
+                    }
                 }
             }
         }
@@ -106,6 +110,8 @@ async function initFilesystem() {
         if (res.ok) fs["C:"].content["BLOG"].content["TODAY.TXT"].content = await res.text();
         let res2 = await fetch('blog/archives.txt');
         if (res2.ok) fs["C:"].content["BLOG"].content["ARCHIVES.TXT"].content = await res2.text();
+        let res3 = await fetch('games/walkthrough.txt');
+        if (res3.ok) fs["C:"].content["GAMES"].content["WALKTHRU.TXT"].content = await res3.text();
     } catch(e) {
         // fallback to embedded
     }
