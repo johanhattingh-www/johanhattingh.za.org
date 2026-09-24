@@ -500,6 +500,7 @@ function runHobbit() {
             if (verb === "QUIT" || verb === "EXIT") {
                 printOutput("\nYou abandon your quest and return to your armchair. Game Over.");
                 cleanup();
+                setPromptVisible(true);
                 return;
             }
 
@@ -588,7 +589,6 @@ function runHobbit() {
     let cleanup = () => {
         gameActive = false;
         document.removeEventListener("keydown", hobbitInputHandler);
-        setPromptVisible(true);
     };
 
     document.addEventListener("keydown", hobbitInputHandler);
