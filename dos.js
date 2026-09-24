@@ -110,7 +110,7 @@ function printOutput(text) {
 
 async function initFilesystem() {
     // Automatically discover and load all text files from blog/ and games/ folders
-    const blogFiles = ['today.txt', 'archives.txt', 'stroke.txt', 'appetite.txt'];
+    const blogFiles = ['today.txt', 'archives.txt', 'stroke.txt', 'appetite.txt', 'sun.txt'];
     for (let filename of blogFiles) {
         try {
             let res = await fetch(`blog/${filename}`);
