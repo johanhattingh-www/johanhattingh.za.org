@@ -57,6 +57,7 @@ let terminalEl = document.getElementById("terminal");
 
 let currentGameState = "DOS"; // "DOS" or "HOBBIT"
 let hobbitState = null;
+let isRunningProgram = false;
 
 function setPromptVisible(visible) {
     let promptLine = document.getElementById("prompt-line");
@@ -99,12 +100,16 @@ function printOutput(text) {
     terminalEl.scrollTop = terminalEl.scrollHeight;
 }
 
-function init() {
-    printOutput("MS-DOS Version 6.22");
-    printOutput("(C) Copyright Microsoft Corp 1981-1994.\n");
-    printOutput("Type HELP for instructions or DIR to view files.\n");
-    updatePrompt();
-    inputEl.focus();
+async function initFilesystem() {
+    try {
+        let res = await fetch('blog/today.txt');
+        if (res.ok) fs["C:"].content["BLOG"].content["TODAY.TXT"].content = await res.text();
+        let res2 = await fetch('blog/archives.txt');
+        if (res2.ok) fs["C:"].content["BLOG"].content["ARCHIVES.TXT"].content = await res2.text();
+    } catch(e) {
+        // fallback to embedded
+    }
+    init();
 }
 
 document.addEventListener("click", () => {
@@ -496,7 +501,13 @@ function runHobbit() {
     promptTextEl.textContent = "HOBBIT>";
     printOutput("");
 }
-    printOutput("\n[HOBBIT> ");
+
+function init() {
+    printOutput("MS-DOS Version 6.22");
+    printOutput("(C) Copyright Microsoft Corp 1981-1994.\n");
+    printOutput("Type HELP for instructions or DIR to view files.\n");
+    updatePrompt();
+    inputEl.focus();
 }
 
-window.onload = init;
+window.onload = initFilesystem;

@@ -1,0 +1,6 @@
+Date: September 2026
+Subject: The Beauty of Command Lines
+
+There is something profoundly liberating about pure text. No heavy DOMs, no bloated frameworks, just raw bytes and precise keystrokes. This site runs entirely on static HTML, CSS, and vanilla JS hosted on GitHub Pages.
+
+Simplicity is the ultimate sophistication.

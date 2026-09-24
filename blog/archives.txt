@@ -1,0 +1,4 @@
+BLOG ARCHIVES:
+- 2026-08-15: Setting up Cloudflare DNS with GitHub Pages
+- 2026-07-01: Why Retro Computing Inspires Modern Engineering
+- 2026-06-10: Hello World from www.johanhattingh.za.org
