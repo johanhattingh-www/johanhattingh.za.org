@@ -4,7 +4,7 @@ const fs = {
         content: {
             "README.TXT": {
                 type: "file",
-                content: "MS-DOS Version 6.22\n(C) Copyright Microsoft Corp 1981-1994.\n\nWelcome to www.johanhattingh.za.org!\nType HELP for a list of available commands and instructions.\nUse DIR to explore files and CD to navigate folders."
+                content: "MS-DOS Version 3.30\n(C) Copyright Microsoft Corp 1981-1987.\n\nWelcome to www.johanhattingh.za.org!\nType HELP for a list of available commands and instructions.\nUse DIR to explore files and CD to navigate folders."
             },
             "HELP.TXT": {
                 type: "file",
@@ -153,7 +153,7 @@ function processCommand(rawCmd) {
             outputEl.textContent = "";
             break;
         case "VER":
-            printOutput("\nMS-DOS Version 6.22\n");
+            printOutput("\nMS-DOS Version 3.30\n");
             break;
         case "DATE":
             printOutput("\nCurrent date is " + new Date().toDateString() + "\n");
@@ -627,8 +627,8 @@ function processHobbitCommand(raw) {
 }
 
 function init() {
-    printOutput("MS-DOS Version 6.22");
-    printOutput("(C) Copyright Microsoft Corp 1981-1994.\n");
+    printOutput("MS-DOS Version 3.30");
+    printOutput("(C) Copyright Microsoft Corp 1981-1987.\n");
     printOutput("Type HELP for instructions or DIR to view files.\n");
     updatePrompt();
     inputEl.focus();
