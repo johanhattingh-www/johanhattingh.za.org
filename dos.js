@@ -4,11 +4,11 @@ const fs = {
         content: {
             "README.TXT": {
                 type: "file",
-                content: "MS-DOS Version 3.30\n(C) Copyright Microsoft Corp 1981-1987.\n\nWelcome to www.johanhattingh.za.org!\nType HELP for a list of available commands and instructions.\nUse DIR to explore files and CD to navigate folders."
+                content: "MS-DOS Version 6.22\n(C) Copyright Microsoft Corp 1981-1994.\n\nWelcome to www.johanhattingh.za.org!\nType HELP for a list of available commands and instructions.\nUse DIR to explore files and CD to navigate folders."
             },
             "HELP.TXT": {
                 type: "file",
-                content: "AVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory (e.g. CD GAMES)\n  CD \\             Return to root directory\n  TYPE <file>      Display contents of a text file\n  CLS              Clear screen\n  MODE CO80 / CO40 / MONO / AMBER\n  DATE / TIME / VER / MEM / CHKDSK\n\nNOTE: To play games or tools like MATRIX, DOOM, HACK, or HOBBIT,\nplease change directory into C:\\GAMES (CD GAMES) and run them from there."
+                content: "AVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory (e.g. CD BLOG)\n  CD \\             Return to root directory\n  TYPE <file>      Display contents of a text file (e.g. TYPE TODAY.TXT)\n  CLS              Clear screen\n  MODE CO80        Switch to standard color 80-column mode\n  MODE CO40        Switch to wide 40-column text mode\n  MODE MONO        Switch to monochrome green phosphor mode\n  MODE AMBER       Switch to amber phosphor mode\n  DATE             Display current system date\n  TIME             Display current system time\n  VER              Display MS-DOS version\n  MATRIX.EXE       Run digital rain screensaver\n  DOOM.BAT         Play classic retro text battle\n  HACK.COM         Launch mainframe penetration tool"
             },
             "BLOG": {
                 type: "dir",
@@ -42,11 +42,7 @@ const fs = {
                     "MATRIX.EXE": { type: "exec", cmd: "matrix" },
                     "DOOM.BAT": { type: "exec", cmd: "doom" },
                     "HACK.COM": { type: "exec", cmd: "hack" },
-                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit" },
-                    "WALKTHRU.TXT": {
-                        type: "file",
-                        content: "THE HOBBIT - OFFICIAL WALKTHROUGH & SOLUTION GUIDE\n\n1. Bag End: TAKE RING, TAKE LETTER, EAST, TAKE WALKING STICK, EAST, TAKE PIE, WEST, WEST, OUT (Hobbiton).\n2. Hobbiton: TAKE MAP, NORTH (Road), EAST (Trollshaws).\n3. Trollshaws: TAKE KEY, TAKE PURSE, EAST (Rivendell).\n4. Rivendell: TAKE BLADE, TAKE SHIELD, EAST (Misty Mountains), DOWN (Goblin Tunnels).\n5. Goblin Tunnels: EAST (Mirkwood), TAKE BOW, EAST (Lake-town), TAKE SPEAR.\n6. Lake-town: NORTH (Lonely Mountain), TAKE ARKENSTONE, ENTER (Smaug's Lair), TAKE GOLDEN CUP.\n\nVictory!"
-                    }
+                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit" }
                 }
             }
         }
@@ -157,7 +153,7 @@ function processCommand(rawCmd) {
             outputEl.textContent = "";
             break;
         case "VER":
-            printOutput("\nMS-DOS Version 3.30\n");
+            printOutput("\nMS-DOS Version 6.22\n");
             break;
         case "DATE":
             printOutput("\nCurrent date is " + new Date().toDateString() + "\n");
@@ -328,13 +324,19 @@ function processCommand(rawCmd) {
             break;
         case "MATRIX.EXE":
         case "MATRIX":
+            runMatrix();
+            break;
         case "DOOM.BAT":
         case "DOOM":
+            runDoom();
+            break;
         case "HACK.COM":
         case "HACK":
+            runHack();
+            break;
         case "HOBBIT.BAT":
         case "HOBBIT":
-            printOutput("\nBad command or filename\n");
+            runHobbit();
             break;
         default:
             // Check if file can be executed or typed (e.g. STATUS.BAT or STATUS)
@@ -344,15 +346,10 @@ function processCommand(rawCmd) {
                 let fileKey = dir[rawUpper] ? rawUpper : baseName;
                 let item = dir[fileKey];
                 if (item.type === "exec") {
-                    let isGamesDir = currentPath.length === 2 && currentPath[1] === "GAMES";
-                    if (isGamesDir) {
-                        if (item.cmd === "matrix") runMatrix();
-                        if (item.cmd === "doom") runDoom();
-                        if (item.cmd === "hack") runHack();
-                        if (item.cmd === "hobbit") runHobbit();
-                    } else {
-                        printOutput("\nBad command or filename\n");
-                    }
+                    if (item.cmd === "matrix") runMatrix();
+                    if (item.cmd === "doom") runDoom();
+                    if (item.cmd === "hack") runHack();
+                    if (item.cmd === "hobbit") runHobbit();
                 } else if (item.type === "file") {
                     printOutput("\n" + item.content + "\n");
                 }
@@ -364,19 +361,18 @@ function processCommand(rawCmd) {
 }
 
 function runMatrix() {
-    let bezel = document.querySelector(".monitor-bezel");
     let div = document.createElement("div");
     div.className = "matrix-screen";
     let canvas = document.createElement("canvas");
     canvas.className = "matrix-canvas";
     div.appendChild(canvas);
-    bezel.appendChild(div);
+    document.body.appendChild(div);
 
     let ctx = canvas.getContext("2d");
-    canvas.width = bezel.clientWidth;
-    canvas.height = bezel.clientHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    let letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺｿﾁﾄﾉﾎﾇﾔﾚﾛｦﾙﾎﾓﾘｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*+<>:-";
+    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
     let fontSize = 16;
     let columns = canvas.width / fontSize;
     let drops = [];
@@ -395,23 +391,11 @@ function runMatrix() {
         }
     }, 33);
 
-    let stopMatrix = () => {
+    div.addEventListener("click", () => {
         clearInterval(interval);
         div.remove();
-        document.removeEventListener("keydown", keyHandler);
         inputEl.focus();
-    };
-
-    let keyHandler = (e) => {
-        e.preventDefault();
-        stopMatrix();
-    };
-
-    div.addEventListener("click", () => {
-        stopMatrix();
     });
-
-    document.addEventListener("keydown", keyHandler);
 }
 
 function runDoom() {
@@ -476,7 +460,7 @@ function runHobbit() {
         },
         hallway: {
             title: "Hallway at Bag End",
-            desc: "A long tunnel-like hallway leading deeper into the smial towards the larder.",
+            desc: "A long tunnel-like hallway leading deeper into the smial.",
             exits: { west: "bagend", east: "larder" },
             items: ["WALKING STICK"]
         },
@@ -519,32 +503,8 @@ function runHobbit() {
         goblintunnels: {
             title: "Goblin Tunnels",
             desc: "Pitch black. Dripping water echoes. A strange creature named Gollum lurks near a subterranean lake.",
-            exits: { up: "mistymountains", east: "mirkwood" },
+            exits: { up: "mistymountains" },
             items: ["RING"]
-        },
-        mirkwood: {
-            title: "Mirkwood Forest",
-            desc: "Webs of giant spiders stretch across the gloom. Twisting paths lead deeper into the dark canopy.",
-            exits: { west: "goblintunnels", east: "laketown" },
-            items: ["BOW"]
-        },
-        laketown: {
-            title: "Lake-town (Esgaroth)",
-            desc: "Wooden houses built upon piles over the dark waters of Long Lake. The Master's halls stand proudly.",
-            exits: { west: "mirkwood", north: "lonelymountain" },
-            items: ["SPEAR"]
-        },
-        lonelymountain: {
-            title: "The Lonely Mountain (Erebor)",
-            desc: "The barren slopes of the Mountain. A secret door is set into the stone facade, waiting for the thrush and key.",
-            exits: { south: "laketown", enter: "smaug lair" },
-            items: ["ARKENSTONE"]
-        },
-        "smaug lair": {
-            title: "Smaug's Lair",
-            desc: "Mountains of glittering gold and jewels lie piled high. The great red dragon Smaug slumbers upon a bed of rubies, guarding his hoard!",
-            exits: { out: "lonelymountain" },
-            items: ["GOLDEN CUP"]
         }
     };
 
@@ -598,7 +558,7 @@ function processHobbitCommand(raw) {
     let loc = hobbitState.world[hobbitState.playerLoc];
 
     // Navigation
-    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "ENTER": "enter", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down", "IN": "enter" };
+    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
     if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
         let dirKey = directions[verb] || directions[parts[1]];
         if (loc.exits[dirKey]) {
@@ -667,8 +627,8 @@ function processHobbitCommand(raw) {
 }
 
 function init() {
-    printOutput("MS-DOS Version 3.30");
-    printOutput("(C) Copyright Microsoft Corp 1981-1987.\n");
+    printOutput("MS-DOS Version 6.22");
+    printOutput("(C) Copyright Microsoft Corp 1981-1994.\n");
     printOutput("Type HELP for instructions or DIR to view files.\n");
     updatePrompt();
     inputEl.focus();

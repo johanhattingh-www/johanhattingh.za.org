@@ -1,64 +1,21 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #2b2b2b;
     color: #00ff00;
     font-family: 'VT323', monospace;
     font-size: 22px;
     line-height: 1.2;
-    overflow-x: hidden;
-    overflow-y: auto;
-    min-height: 100vh;
+    overflow: hidden;
+    height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.monitor-casing {
-    background: #d4c5b9;
-    padding: 20px;
-    border-radius: 12px;
-    border: 4px solid #b8a89c;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.7), inset 0 2px 5px rgba(255,255,255,0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 100%;
-}
-
-.monitor-bezel {
-    background: #111;
-    padding: 15px;
-    border: 12px solid #332f2c;
-    border-radius: 8px;
-    width: min(820px, 92vw);
-    height: min(520px, 70vh);
-    overflow: hidden;
-    position: relative;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
-}
-
-@media (max-width: 900px), (max-height: 650px) {
-    .monitor-casing {
-        padding: 10px;
-        width: 100%;
-        border: none;
-        border-radius: 0;
-        background: #2b2b2b;
-        box-shadow: none;
-    }
-    .monitor-brand, .monitor-panel {
-        display: none;
-    }
-    .monitor-bezel {
-        width: 100vw !important;
-        height: 100vh !important;
-        border: none;
-        border-radius: 0;
-        padding: 10px;
-    }
 }
 
 body.mode-mono {
@@ -208,11 +165,11 @@ body.mode-co80 {
 }
 
 .matrix-screen {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: black;
     z-index: 1000;
     overflow: hidden;
