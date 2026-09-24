@@ -74,10 +74,8 @@ body.mode-co80 {
     word-break: break-all;
 }
 
-.prompt-line {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
+.prompt-line.hidden {
+    display: none;
 }
 
 #prompt-text {

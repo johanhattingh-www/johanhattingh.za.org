@@ -48,11 +48,19 @@ const fs = {
     }
 };
 
-let currentPath = ["C:"];
-let inputEl = document.getElementById("command-input");
-let outputEl = document.getElementById("output");
-let promptTextEl = document.getElementById("prompt-text");
-let terminalEl = document.getElementById("terminal");
+let isRunningProgram = false;
+
+function setPromptVisible(visible) {
+    let promptLine = document.getElementById("prompt-line");
+    if (visible) {
+        promptLine.classList.remove("hidden");
+        isRunningProgram = false;
+        inputEl.focus();
+    } else {
+        promptLine.classList.add("hidden");
+        isRunningProgram = true;
+    }
+}
 
 function getDirByPath(pathArr) {
     let curr = fs;
@@ -92,10 +100,16 @@ function init() {
 }
 
 document.addEventListener("click", () => {
-    inputEl.focus();
+    if (!isRunningProgram) {
+        inputEl.focus();
+    }
 });
 
-inputEl.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (e) => {
+    if (isRunningProgram) {
+        e.preventDefault();
+        return;
+    }
     if (e.key === "Enter") {
         e.preventDefault();
         let cmd = inputEl.textContent.trim();
@@ -332,16 +346,27 @@ function runMatrix() {
 }
 
 function runDoom() {
+    setPromptVisible(false);
     printOutput("\n[DOOM.BAT] Loading Retro Text Arena...");
     setTimeout(() => {
         printOutput("=> Demon spotted! You fire your shotgun...");
         setTimeout(() => {
-            printOutput("=> Imp defeated! Victory! Press any key or type to return.");
+            printOutput("=> Imp defeated! Victory!");
+            printOutput("Press any key to continue . . .");
+            
+            let keyHandler = (e) => {
+                e.preventDefault();
+                document.removeEventListener("keydown", keyHandler);
+                printOutput("");
+                setPromptVisible(true);
+            };
+            document.addEventListener("keydown", keyHandler);
         }, 1000);
     }, 1000);
 }
 
 function runHack() {
+    setPromptVisible(false);
     printOutput("\n[HACK.COM] Initializing mainframe penetration sequence...");
     let steps = [
         "Bypassing firewall on www.johanhattingh.za.org...",
@@ -355,7 +380,15 @@ function runHack() {
             idx++;
         } else {
             clearInterval(interval);
-            printOutput("");
+            printOutput("\nPress any key to continue . . .");
+            
+            let keyHandler = (e) => {
+                e.preventDefault();
+                document.removeEventListener("keydown", keyHandler);
+                printOutput("");
+                setPromptVisible(true);
+            };
+            document.addEventListener("keydown", keyHandler);
         }
     }, 800);
 }
