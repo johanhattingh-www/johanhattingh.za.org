@@ -75,7 +75,7 @@ let outputEl = document.getElementById("output");
 let promptTextEl = document.getElementById("prompt-text");
 let terminalEl = document.getElementById("terminal");
 
-let currentGameState = "DOS"; // "DOS" or "HOBBIT"
+let activePager = null; // { lines: [], currentIndex: 0 }
 let hobbitState = null;
 let isRunningProgram = false;
 
@@ -120,6 +120,19 @@ function printOutput(text) {
     terminalEl.scrollTop = terminalEl.scrollHeight;
 }
 
+function printPagerChunk() {
+    let chunkSize = 18;
+    let chunk = activePager.lines.slice(activePager.currentIndex, activePager.currentIndex + chunkSize).join("\n");
+    printOutput(chunk);
+    activePager.currentIndex += chunkSize;
+    if (activePager.currentIndex < activePager.lines.length) {
+        printOutput("\n--- Press ENTER to continue, or Q to quit ---");
+    } else {
+        activePager = null;
+        printOutput("");
+    }
+}
+
 async function initFilesystem() {
     init();
 }
@@ -139,6 +152,17 @@ document.addEventListener("keydown", (e) => {
         e.preventDefault();
         let cmd = inputEl.textContent.trim();
         inputEl.textContent = "";
+
+        if (activePager) {
+            if (cmd.toUpperCase() === "Q") {
+                activePager = null;
+                printOutput("\n");
+            } else {
+                printPagerChunk();
+            }
+            terminalEl.scrollTop = terminalEl.scrollHeight;
+            return;
+        }
 
         if (currentGameState === "DOS") {
             printOutput(promptTextEl.textContent + cmd);
@@ -316,7 +340,14 @@ function processCommand(rawCmd) {
             }
             let filename = argStr.toUpperCase();
             if (dir[filename] && dir[filename].type === "file") {
-                printOutput("\n" + dir[filename].content + "\n");
+                let textContent = "\n" + dir[filename].content + "\n";
+                let lines = textContent.split("\n");
+                if (lines.length > 20) {
+                    activePager = { lines: lines, currentIndex: 0 };
+                    printPagerChunk();
+                } else {
+                    printOutput(textContent);
+                }
             } else {
                 printOutput("\nFile not found - " + filename + "\n");
             }
