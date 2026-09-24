@@ -92,7 +92,8 @@ body.mode-co80 {
     flex: 0 1 auto;
     min-width: 0;
     caret-color: transparent;
-    padding-left: 2px;
+    padding-left: 0px;
+    margin-left: 0px;
     white-space: pre;
     overflow-x: hidden;
 }
