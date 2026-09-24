@@ -286,7 +286,8 @@ function processCommand(rawCmd) {
                 break;
             }
             let target = argStr.toUpperCase();
-            if (dir[target] && dir[target].type === "dir") {
+            let currDir = getCurrentDir();
+            if (currDir[target] && currDir[target].type === "dir") {
                 currentPath.push(target);
                 updatePrompt();
             } else {
