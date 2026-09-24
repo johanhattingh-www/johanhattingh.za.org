@@ -243,18 +243,21 @@ function processCommand(rawCmd) {
             printOutput("\n Directory of " + currentPath.join("\\") + (currentPath.length === 1 ? "\\" : ""));
             let count = 0;
             let bytes = 0;
+            let fileCount = 0;
             for (let name in dir) {
                 let item = dir[name];
+                let dateStr = "09-24-26  12:00p";
                 if (item.type === "dir") {
-                    printOutput(String("       <DIR>").padStart(14, ' ') + "   " + name);
+                    printOutput(dateStr + "    <DIR>        " + name);
                 } else {
                     let size = item.content ? item.content.length : 128;
                     bytes += size;
-                    printOutput(String(size).padStart(14, ' ') + "   " + name);
+                    fileCount++;
+                    printOutput(dateStr + "    " + String(size).padStart(9, ' ') + "   " + name);
                 }
                 count++;
             }
-            printOutput(String(count).padStart(6, ' ') + " File(s)       " + bytes + " bytes");
+            printOutput(String(fileCount).padStart(6, ' ') + " File(s)       " + bytes + " bytes");
             printOutput("       0 Dir(s)  1,457,664 bytes free\n");
             break;
         case "CD":
