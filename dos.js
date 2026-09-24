@@ -8,7 +8,7 @@ const fs = {
             },
             "HELP.TXT": {
                 type: "file",
-                content: "AVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory (e.g. CD GAMES)\n  CD \\             Return to root directory\n  TYPE <file>      Display contents of a text file\n  CLS              Clear screen\n  MODE CO80 / CO40 / MONO / AMBER\n  DATE / TIME / VER / MEM / CHKDSK\n\nNOTE: To play games or tools like MATRIX, DOOM, HACK, or HOBBIT,\nplease change directory into C:\\GAMES (CD GAMES) and run them from there."
+                content: "AVAILABLE COMMANDS:\n  DIR              List directory contents\n  CD <dir>         Change directory\n  TYPE <file>      Display contents of a text file\n  CLS              Clear screen\n  MODE CO80 / CO40 / MONO / AMBER\n  DATE / TIME / VER / MEM / CHKDSK"
             },
             "BLOG": {
                 type: "dir",
@@ -351,7 +351,7 @@ function processCommand(rawCmd) {
                         if (item.cmd === "hack") runHack();
                         if (item.cmd === "hobbit") runHobbit();
                     } else {
-                        printOutput("\nBad command or filename - program must be run from C:\\GAMES directory.\n");
+                        printOutput("\nBad command or filename: " + rawCmd + "\n");
                     }
                 } else if (item.type === "file") {
                     printOutput("\n" + item.content + "\n");
