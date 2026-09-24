@@ -113,7 +113,7 @@ async function initFilesystem() {
     const blogFiles = ['today.txt', 'archives.txt', 'stroke.txt', 'appetite.txt', 'sun.txt'];
     for (let filename of blogFiles) {
         try {
-            let res = await fetch(`blog/${filename}`);
+            let res = await fetch(`./blog/${filename}`);
             if (res.ok) {
                 let text = await res.text();
                 let key = filename.toUpperCase();
@@ -128,7 +128,7 @@ async function initFilesystem() {
     const gameFiles = ['walkthrough.txt'];
     for (let filename of gameFiles) {
         try {
-            let res = await fetch(`games/${filename}`);
+            let res = await fetch(`./games/${filename}`);
             if (res.ok) {
                 let text = await res.text();
                 let key = filename.replace('.txt', '').toUpperCase() + ".TXT";
