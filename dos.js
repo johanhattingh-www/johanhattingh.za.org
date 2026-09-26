@@ -70,7 +70,7 @@ const fs = {
                     "MATRIX.EXE": { type: "exec", cmd: "matrix" },
                     "DOOM.BAT": { type: "exec", cmd: "doom" },
                     "HACK.COM": { type: "exec", cmd: "hack" },
-                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit" },
+                    "HOBBIT.BAT": { type: "exec", cmd: "hobbit", date: "11-01-82  12:00p" },
                     "WALKTHRU.TXT": {
                         type: "file",
                         content: "THE HOBBIT - OFFICIAL WALKTHROUGH & SOLUTION GUIDE\n\n1. Bag End: TAKE RING, TAKE LETTER, EAST, TAKE WALKING STICK, EAST, TAKE PIE, WEST, WEST, OUT (Hobbiton).\n2. Hobbiton: TAKE MAP, NORTH (Road), EAST (Trollshaws).\n3. Trollshaws: TAKE KEY, TAKE PURSE, EAST (Rivendell).\n4. Rivendell: TAKE BLADE, TAKE SHIELD, EAST (Misty Mountains), DOWN (Goblin Tunnels).\n5. Goblin Tunnels: EAST (Mirkwood), TAKE BOW, EAST (Lake-town), TAKE SPEAR.\n6. Lake-town: NORTH (Lonely Mountain), TAKE ARKENSTONE, ENTER (Smaug's Lair), TAKE GOLDEN CUP.\n\nVictory!"
@@ -261,12 +261,13 @@ function processCommand(rawCmd) {
             let bytes = 0;
             for (let name in dir) {
                 let item = dir[name];
+                let dateStr = item.date || "09-24-26  12:00p";
                 if (item.type === "dir") {
-                    printOutput(String("       <DIR>").padStart(14, ' ') + "   " + name);
+                    printOutput(name.padEnd(12, ' ') + String("<DIR>").padStart(8, ' ') + "  " + dateStr);
                 } else {
                     let size = item.content ? item.content.length : 128;
                     bytes += size;
-                    printOutput(String(size).padStart(14, ' ') + "   " + name);
+                    printOutput(name.padEnd(12, ' ') + String(size).padStart(8, ' ') + "  " + dateStr);
                 }
                 count++;
             }
