@@ -2,28 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.johanhattingh.za.org/</loc>
-        <lastmod>2026-09-24</lastmod>
+        <lastmod>2026-09-27</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://www.johanhattingh.za.org/blog/today.txt</loc>
-        <lastmod>2026-09-24</lastmod>
+        <loc>https://www.johanhattingh.za.org/blog/vice.html</loc>
+        <lastmod>2026-09-27</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.johanhattingh.za.org/blog/stroke.txt</loc>
-        <lastmod>2026-09-24</lastmod>
+        <loc>https://www.johanhattingh.za.org/blog/kettle.html</loc>
+        <lastmod>2026-09-27</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.johanhattingh.za.org/blog/appetite.txt</loc>
-        <lastmod>2026-09-24</lastmod>
+        <loc>https://www.johanhattingh.za.org/blog/barnabas.html</loc>
+        <lastmod>2026-09-27</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.johanhattingh.za.org/blog/sun.txt</loc>
-        <lastmod>2026-09-24</lastmod>
+        <loc>https://www.johanhattingh.za.org/blog/wire.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.johanhattingh.za.org/blog/clock.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.johanhattingh.za.org/blog/borehole.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.johanhattingh.za.org/blog/sun.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.johanhattingh.za.org/blog/appetite.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.johanhattingh.za.org/blog/stroke.html</loc>
+        <lastmod>2026-09-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.johanhattingh.za.org/blog/today.html</loc>
+        <lastmod>2026-09-27</lastmod>
         <priority>0.8</priority>
     </url>
 </urlset>
