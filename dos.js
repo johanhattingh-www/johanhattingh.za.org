@@ -23,8 +23,8 @@ const fs = {
                     },
                     "ARCHIVES.TXT": {
                         type: "file",
-                        date: "09-27-26   9:30a",
-                        content: "BLOG ARCHIVES:\n- 2026-09-27: Sleep Inertia and the Ninth Hour (SLEEP.TXT)\n- 2026-09-26: The Rusted Vice (VICE.TXT)\n- 2026-09-25: The Copper Kettle (KETTLE.TXT)\n- 2026-09-23: Barnabas Frequency (BARNABAS.TXT)\n- 2026-09-22: The Morning Wire (WIRE.TXT)\n- 2026-09-15: The Kitchen Clock (CLOCK.TXT)\n- 2026-09-12: The Borehole and the Event Horizon (BOREHOLE.TXT)\n- 2026-09-08: The Sun and the Screen Door (SUN.TXT)\n- 2026-09-04: The Chemistry of Appetite (APPETITE.TXT)\n- 2026-09-01: The Physics of Stroke Recovery (STROKE.TXT)\n- 2026-08-15: Setting up Cloudflare DNS with GitHub Pages\n- 2026-07-01: Why Retro Computing Inspires Modern Engineering\n- 2026-06-10: Hello World from www.johanhattingh.za.org"
+                        date: "09-28-26   8:00a",
+                        content: "BLOG ARCHIVES:\n- 2026-09-28: Same Pattern, New Sand (RUST.TXT)\n- 2026-09-27: Sleep Inertia and the Ninth Hour (SLEEP.TXT)\n- 2026-09-26: The Rusted Vice (VICE.TXT)\n- 2026-09-25: The Copper Kettle (KETTLE.TXT)\n- 2026-09-23: Barnabas Frequency (BARNABAS.TXT)\n- 2026-09-22: The Morning Wire (WIRE.TXT)\n- 2026-09-15: The Kitchen Clock (CLOCK.TXT)\n- 2026-09-12: The Borehole and the Event Horizon (BOREHOLE.TXT)\n- 2026-09-08: The Sun and the Screen Door (SUN.TXT)\n- 2026-09-04: The Chemistry of Appetite (APPETITE.TXT)\n- 2026-09-01: The Physics of Stroke Recovery (STROKE.TXT)\n- 2026-08-15: Setting up Cloudflare DNS with GitHub Pages\n- 2026-07-01: Why Retro Computing Inspires Modern Engineering\n- 2026-06-10: Hello World from www.johanhattingh.za.org"
                     },
                     "STROKE.TXT": {
                         type: "file",
@@ -75,6 +75,11 @@ const fs = {
                         type: "file",
                         date: "09-27-26   7:10a",
                         content: "Date: September 27, 2026\nSubject: Sleep Inertia and the Ninth Hour\n\nLiesl caught me staring into a cold mug on the back step on Saturday. I had slept nine hours, no alarm, and woke up feeling like someone had replaced my kneecaps with dry gravel. On five hours I can teach three double periods of electrostatics and referee under-eleven rugby without noticing my shins. On nine, my boots felt heavy before I even tied the laces.\n\nMost folks assume sleep works like filling an empty petrol tank: more litres poured in should simply mean more distance down the road. Biology does not care for that picture. Sleep cycles run in ninety-minute waves, climbing from light drifting down into deep slow-wave repair and back up again. When you sleep seven hours, you generally surface near the top of a wave. Stretch it out to nine, and the odds shift. You rip yourself out from the dark, heavy trough at the bottom.\n\nClinicians call that leaden fog sleep inertia. It is not exhaustion. It is a phase error. Your brain is trying to strike a match while the chemical taps for waking are still half-closed.\n\nLiesl did not look up from her tea. \"You didn't need rest,\" she said. \"You were just hiding.\""
+                    },
+                    "RUST.TXT": {
+                        type: "file",
+                        date: "09-28-26   8:00a",
+                        content: "Date: September 28, 2026\nSubject: Same Pattern, New Sand\n\nEvery atom in your body gets swapped out over the years. You are not a fixed object. You are a pattern, a shape maintained in a river of atoms. Think of a sandcastle where every grain is replaced by a fresh one, grain by grain; the structure remains, but the material is entirely new.\n\nThe trouble is that every time the information is copied, little errors creep in. It is just the second law of thermodynamics—disorder is always more probable than order. Your body has incredible Maxwell's demons, tiny repair enzymes that proofread and patch the damage, but they are made of the same stuff they are protecting. They rust, they slow, they miss a patch.\n\nMy father used to say that forcing a vice to hold tension it wasn't built for just ruins the threads. We are all holding a bit more tension than we were built for. That rust isn't a malfunction; it is just the price of being a pattern instead of a rock.\n\nSame pattern, new sand."
                     }
                 }
             },
