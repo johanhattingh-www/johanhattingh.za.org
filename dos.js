@@ -204,9 +204,20 @@ async function initFilesystem() {
     const urlParams = new URLSearchParams(window.location.search);
     let cmd = urlParams.get("cmd");
     if (cmd) {
-        cmd = cmd.replace(/\+/g, " ");
-        printOutput(promptTextEl.textContent + cmd);
-        processCommand(cmd);
+        let decoded = cmd.replace(/\+/g, " ");
+        let parts = decoded.split(/(?:\s*&&\s*|\s*;\s*|\s+TYPE\s+)/i);
+        if (decoded.toUpperCase().includes(" TYPE ")) {
+            let idx = decoded.toUpperCase().indexOf(" TYPE ");
+            let first = decoded.substring(0, idx).trim();
+            let second = decoded.substring(idx).trim();
+            printOutput(promptTextEl.textContent + first);
+            processCommand(first);
+            printOutput(promptTextEl.textContent + second);
+            processCommand(second);
+        } else {
+            printOutput(promptTextEl.textContent + decoded);
+            processCommand(decoded);
+        }
     }
 }
 
