@@ -202,8 +202,9 @@ function printOutput(text) {
 async function initFilesystem() {
     init();
     const urlParams = new URLSearchParams(window.location.search);
-    const cmd = urlParams.get("cmd");
+    let cmd = urlParams.get("cmd");
     if (cmd) {
+        cmd = cmd.replace(/\+/g, " ");
         printOutput(promptTextEl.textContent + cmd);
         processCommand(cmd);
     }
