@@ -26,6 +26,10 @@ body.mode-amber {
     color: #ffb000;
 }
 
+body.mode-herc {
+    color: #b5e853;
+}
+
 body.mode-co40 {
     font-size: 28px;
 }
