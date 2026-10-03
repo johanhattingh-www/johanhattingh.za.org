@@ -137,6 +137,7 @@ const fs = {
                     "DOOM.BAT": { type: "exec", cmd: "doom", date: "12-10-93   4:00p" },
                     "HACK.COM": { type: "exec", cmd: "hack", date: "09-15-95   2:15a" },
                     "HOBBIT.BAT": { type: "exec", cmd: "hobbit", date: "11-01-82  12:00p" },
+                    "HITCH.BAT": { type: "exec", cmd: "hitch", date: "11-01-84  12:00p" },
                     "WALKTHRU.TXT": {
                         type: "file",
                         date: "11-05-82   3:00p",
@@ -154,8 +155,9 @@ let outputEl = document.getElementById("output");
 let promptTextEl = document.getElementById("prompt-text");
 let terminalEl = document.getElementById("terminal");
 
-let currentGameState = "DOS"; // "DOS" or "HOBBIT"
+let currentGameState = "DOS"; // "DOS", "HOBBIT", or "HITCH"
 let hobbitState = null;
+let hitchState = null;
 let isRunningProgram = false;
 
 function setPromptVisible(visible) {
@@ -245,6 +247,9 @@ document.addEventListener("keydown", (e) => {
         } else if (currentGameState === "HOBBIT") {
             printOutput("> " + cmd);
             processHobbitCommand(cmd);
+        } else if (currentGameState === "HITCH") {
+            printOutput("> " + cmd);
+            processHitchhikerCommand(cmd);
         }
         terminalEl.scrollTop = terminalEl.scrollHeight;
     }
@@ -462,12 +467,15 @@ function processSingleCommand(rawCmd) {
         case "HACK":
         case "HOBBIT.BAT":
         case "HOBBIT":
+        case "HITCH.BAT":
+        case "HITCH":
             let isGamesDir = currentPath.length === 2 && currentPath[1] === "GAMES";
             if (isGamesDir) {
                 if (cmd.includes("MATRIX")) runMatrix();
                 else if (cmd.includes("DOOM")) runDoom();
                 else if (cmd.includes("HACK")) runHack();
                 else if (cmd.includes("HOBBIT")) runHobbit();
+                else if (cmd.includes("HITCH")) runHitchhiker();
             } else {
                 printOutput("\nBad command or filename\n");
             }
@@ -615,7 +623,151 @@ function runHack() {
     }, 800);
 }
 
-function runHobbit() {
+function runHitchhiker() {
+    printOutput("\nTHE HITCHHIKER'S GUIDE TO THE GALAXY - Infocom (1984 / MS-DOS Edition)");
+    printOutput("The lights in your bedroom seem to be far too bright. Or is it just the hangover?");
+    printOutput("Type directions (NORTH, SOUTH, EAST, WEST), EXAMINE, TAKE <item>, INVENTORY, or QUIT.\n");
+
+    const world = {
+        bedroom: {
+            title: "Bedroom",
+            desc: "The room is spinning very gently round your head. Or at least it would be if you could see it which you can't.",
+            exits: { east: "hallway", downstairs: "kitchen" },
+            items: ["BATHROBE", "SPACESHIP_BULLDOZER_NOTICE"]
+        },
+        hallway: {
+            title: "Hallway",
+            desc: "A dingy hallway with peeling wallpaper and a door leading outside.",
+            exits: { west: "bedroom", out: "garden" },
+            items: ["TOWEL"]
+        },
+        kitchen: {
+            title: "Kitchen",
+            desc: "Smells of stale beer and linoleum. There is a fridge here humming menacingly.",
+            exits: { upstairs: "bedroom" },
+            items: ["PEANUT_PACKET", "BEER"]
+        },
+        garden: {
+            title: "Garden / Front Yard",
+            desc: "A yellow bulldozer is parked right outside your front door. Mr. Prosser is looking cold and miserable.",
+            exits: { in: "hallway", south: "pub" },
+            items: ["MUD"]
+        },
+        pub: {
+            title: "The Horse and Groom Pub",
+            desc: "Smoky, warm, and smelling of mild ale. Landlord suggests drinking heavily before the world ends.",
+            exits: { north: "garden" },
+            items: ["PINT_OF_BITTER", "BAG_OF_CHIPS"]
+        }
+    };
+
+    hitchState = {
+        world: world,
+        playerLoc: "bedroom",
+        inventory: [],
+        score: 0,
+        describeCurrentLoc: function() {
+            let loc = this.world[this.playerLoc];
+            printOutput("\n--- " + loc.title + " ---");
+            printOutput(loc.desc);
+            if (loc.items.length > 0) {
+                printOutput("You see here: " + loc.items.join(", "));
+            }
+            let exitList = Object.keys(loc.exits).join(", ");
+            printOutput("Exits: [" + exitList + "]");
+        }
+    };
+
+    hitchState.describeCurrentLoc();
+    currentGameState = "HITCH";
+    promptTextEl.textContent = "HITCH>";
+    printOutput("");
+}
+
+function processHitchhikerCommand(raw) {
+    let cmd = raw.toUpperCase().trim();
+    if (!cmd) return;
+    let parts = cmd.split(/\s+/);
+    let verb = parts[0];
+    let obj = parts.slice(1).join(" ");
+
+    if (verb === "QUIT" || verb === "EXIT") {
+        currentGameState = "DOS";
+        currentPath = ["C:", "GAMES"];
+        updatePrompt();
+        printOutput("\nLeaving Hitchhiker's Guide. Don't Panic!\n");
+        return;
+    }
+
+    if (verb === "INVENTORY" || verb === "INV" || verb === "I") {
+        printOutput(hitchState.inventory.length > 0 ? "You are carrying: " + hitchState.inventory.join(", ") : "You are carrying nothing. (Always know where your towel is!)");
+        return;
+    }
+
+    let loc = hitchState.world[hitchState.playerLoc];
+
+    let dirMap = {
+        "NORTH": "north", "N": "north",
+        "SOUTH": "south", "S": "south",
+        "EAST": "east", "E": "east",
+        "WEST": "west", "W": "west",
+        "UP": "upstairs", "U": "upstairs",
+        "DOWN": "downstairs", "D": "downstairs",
+        "IN": "in", "OUT": "out"
+    };
+
+    if (dirMap[verb]) {
+        let direction = dirMap[verb];
+        if (loc.exits[direction]) {
+            hitchState.playerLoc = loc.exits[direction];
+            hitchState.describeCurrentLoc();
+        } else {
+            printOutput("You can't go that way.");
+        }
+        return;
+    }
+
+    if (verb === "TAKE" || verb === "GET") {
+        let target = obj;
+        if (loc.items.includes(target)) {
+            loc.items = loc.items.filter(i => i !== target);
+            hitchState.inventory.push(target);
+            printOutput("Taken.");
+            if (target === "TOWEL") {
+                printOutput("The Hitchhiker's Guide to the Galaxy notes: 'A towel is about the most massively useful thing an interstellar hitchhiker can have.'");
+            }
+        } else {
+            printOutput("You don't see that here.");
+        }
+        return;
+    }
+
+    if (verb === "EXAMINE" || verb === "X" || verb === "LOOK") {
+        let target = obj;
+        if (!target) {
+            hitchState.describeCurrentLoc();
+            return;
+        }
+        if (hitchState.inventory.includes(target) || loc.items.includes(target)) {
+            let descriptions = {
+                "BATHROBE": "A slightly tatty flannel bathrobe. Pocket contains a packet of peanuts and a bruised hitchhiker's thumb.",
+                "TOWEL": "Frayed, damp, but immensely versatile.",
+                "PEANUT_PACKET": "Fluffy green peanuts. Probably harmless.",
+                "BEER": "Warm bitter in a pint glass.",
+                "PINT_OF_BITTER": "The best drink in the universe before the Vogons arrive.",
+                "BAG_OF_CHIPS": "Salty potato snacks.",
+                "MUD": "Heavy Gloucestershire earth.",
+                "SPACESHIP_BULLDOZER_NOTICE": "Demolition notice for your house to make way for a bypass."
+            };
+            printOutput(descriptions[target] || "It looks wonderfully ordinary, right before hyperspace bypass construction.");
+        } else {
+            printOutput("You don't see that here or in your inventory.");
+        }
+        return;
+    }
+
+    printOutput("The Infocom parser is bewildered by '" + raw + "'. Remember: DON'T PANIC and always carry your towel!");
+}
     printOutput("\nTHE HOBBIT - Melbourne House (1982 / MS-DOS Edition)");
     printOutput("Inspired by J.R.R. Tolkien. Powered by INGRID Parser.");
     printOutput("Type commands like 'GO NORTH', 'EXAMINE HOLE', 'TAKE RING', 'ASK THORIN ABOUT KEY', or 'QUIT'.\n");
