@@ -200,12 +200,13 @@ function printOutput(text) {
 }
 
 async function initFilesystem() {
+    init();
     const urlParams = new URLSearchParams(window.location.search);
     const cmd = urlParams.get("cmd");
     if (cmd) {
+        printOutput(promptTextEl.textContent + cmd);
         processCommand(cmd);
     }
-    init();
 }
 
 document.addEventListener("click", () => {
