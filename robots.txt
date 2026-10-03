@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://johanhattingh.za.org/sitemap.xml
+
 Sitemap: https://www.johanhattingh.za.org/sitemap.xml
