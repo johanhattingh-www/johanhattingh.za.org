@@ -698,7 +698,7 @@ function processHobbitCommand(raw) {
     let loc = hobbitState.world[hobbitState.playerLoc];
 
     // Navigation
-    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
+    let directions = { "NORTH": "north", "SOUTH": "south", "EAST": "east", "WEST": "west", "UP": "up", "DOWN": "down", "OUT": "out", "ENTER": "enter", "N": "north", "S": "south", "E": "east", "W": "west", "U": "up", "D": "down" };
     if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
         let dirKey = directions[verb] || directions[parts[1]];
         if (loc.exits[dirKey]) {
