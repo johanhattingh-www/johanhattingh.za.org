@@ -702,15 +702,19 @@ function processHobbitCommand(raw) {
     if (directions[verb] || (verb === "GO" && directions[parts[1]])) {
         let dirKey = directions[verb] || directions[parts[1]];
         if (loc.exits[dirKey]) {
-            if (loc.exits[dirKey] === "smauglair" && !hobbitState.inventory.includes("ARKENSTONE")) {
-                printOutput("You approach the dark inner cavern, but the terrifying roar of Smaug drives you back! You need the Arkenstone or the magical Ring to brave the dragon's lair safely.");
-                return;
+            if (loc.exits[dirKey] === "smauglair") {
+                if (!hobbitState.inventory.includes("ARKENSTONE") && !hobbitState.inventory.includes("RING")) {
+                    printOutput("You approach the dark inner cavern, but the terrifying roar of Smaug drives you back! You need the Arkenstone or the magical Ring to brave the dragon's lair safely.");
+                    return;
+                }
             }
             hobbitState.playerLoc = loc.exits[dirKey];
             hobbitState.score += 5;
             hobbitState.describeCurrentLoc();
             if (hobbitState.playerLoc === "hobbiton") {
                 printOutput("\nThorin Oakenshield steps forward, adjusting his hood: 'Master Baggins! At last! We have long awaited our burglar for the journey to Erebor!'");
+            } else if (hobbitState.playerLoc === "smauglair") {
+                printOutput("\nSmaug the Golden stirs upon his mountain of treasure, breathing embers into the dark! With your stealth and courage, you slip past him unnoticed.");
             }
         } else {
             printOutput("You cannot go that way.");
