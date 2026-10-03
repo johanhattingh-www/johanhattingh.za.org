@@ -619,8 +619,32 @@ function runHobbit() {
         goblintunnels: {
             title: "Goblin Tunnels",
             desc: "Pitch black. Dripping water echoes. A strange creature named Gollum lurks near a subterranean lake.",
-            exits: { up: "mistymountains" },
+            exits: { up: "mistymountains", east: "mirkwood" },
             items: ["RING"]
+        },
+        mirkwood: {
+            title: "Mirkwood Forest",
+            desc: "Gloomy, twisting paths beneath a suffocating canopy of ancient trees.",
+            exits: { west: "goblintunnels", east: "laketown" },
+            items: ["BOW"]
+        },
+        laketown: {
+            title: "Lake-town (Esgaroth)",
+            desc: "A town built on wooden piles over the dark waters of Long Lake.",
+            exits: { west: "mirkwood", north: "lonelymountain" },
+            items: ["SPEAR"]
+        },
+        lonelymountain: {
+            title: "Lonely Mountain (Erebor)",
+            desc: "The imposing stone gateway into the mountain kingdom. Smaug's Lair lies within.",
+            exits: { south: "laketown", enter: "smauglair" },
+            items: ["ARKENSTONE"]
+        },
+        smauglair: {
+            title: "Smaug's Lair",
+            desc: "A vast cavern glittering with mountains of stolen gold and ancient treasure.",
+            exits: { out: "lonelymountain" },
+            items: ["GOLDEN CUP"]
         }
     };
 
