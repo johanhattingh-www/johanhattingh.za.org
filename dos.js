@@ -490,7 +490,7 @@ function processSingleCommand(rawCmd) {
                         printOutput("\nBad command or filename\n");
                     }
                 } else if (item.type === "file") {
-                    printOutput("\n" + item.content + "\n");
+                    printOutput("\n" + item.content + "\n", false);
                 }
             } else {
                 printOutput("\nBad command or filename: " + rawCmd + "\n");
