@@ -748,9 +748,43 @@ function processHobbitCommand(raw) {
         return;
     }
 
-    // INGRID Parser
-    if (verb === "EXAMINE" || verb === "LOOK" || verb === "X") {
-        printOutput("It looks quite interesting and peculiarly useful for an adventurous hobbit.");
+    // Examine / Look at item
+    if (verb === "EXAMINE" || verb === "LOOK" || verb === "X" || verb === "INSPECT") {
+        let target = obj;
+        if (!target && parts[1] === "AT") {
+            target = parts.slice(2).join(" ");
+        }
+        if (!target) {
+            hobbitState.describeCurrentLoc();
+            return;
+        }
+        // Check inventory first
+        if (hobbitState.inventory.includes(target)) {
+            let descriptions = {
+                "RING": "A plain golden ring that seems to shimmer with an inner light.",
+                "LETTER": "A parchment note from Gandalf bearing runes of guidance and warning.",
+                "WALKINGS STICK": "A sturdy wooden staff, well-polished from years of walking the Shire.",
+                "WINE": "A bottle of fine vintage wine from the Westfold.",
+                "PIE": "A delicious pork pie wrapped in a crisp pastry crust.",
+                "MAP": "Thror's Map of the Lonely Mountain with secret moon-runes.",
+                "KEY": "An ancient iron key of dwarven make, heavy and cold.",
+                "PURSE": "A leather pouch containing three silver pennies.",
+                "BLADE": "Orcrist, the Goblin-cleaver, glowing with a faint blue wrath.",
+                "SHIELD": "A light dwarf-wrought shield emblazoned with a sigil of Erebor.",
+                "BOW": "A flexible yew bow carved with fine elven tracery.",
+                "SPEAR": "A long iron-tipped spear forged in the armories of Lake-town.",
+                "ARKENSTONE": "The Heart of the Mountain, glowing with its own pale inner radiance.",
+                "GOLDEN CUP": "A magnificent two-handled cup encrusted with precious gems."
+            };
+            printOutput(descriptions[target] || "It looks quite interesting and peculiarly useful for an adventurous hobbit.");
+            return;
+        }
+        // Check room items
+        if (loc.items.includes(target)) {
+            printOutput("It is lying here in the location.");
+            return;
+        }
+        printOutput("You don't see that here or in your inventory.");
         return;
     }
 
