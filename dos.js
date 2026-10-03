@@ -194,9 +194,11 @@ function updatePrompt() {
     promptTextEl.textContent = pathStr + ">";
 }
 
-function printOutput(text) {
+function printOutput(text, autoScroll = true) {
     outputEl.textContent += text + "\n";
-    terminalEl.scrollTop = terminalEl.scrollHeight;
+    if (autoScroll) {
+        terminalEl.scrollTop = terminalEl.scrollHeight;
+    }
 }
 
 async function initFilesystem() {
@@ -427,7 +429,7 @@ function processSingleCommand(rawCmd) {
             }
             let filename = argStr.toUpperCase();
             if (dir[filename] && dir[filename].type === "file") {
-                printOutput("\n" + dir[filename].content + "\n");
+                printOutput("\n" + dir[filename].content + "\n", false);
             } else {
                 printOutput("\nFile not found - " + filename + "\n");
             }
