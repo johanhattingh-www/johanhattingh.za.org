@@ -589,7 +589,7 @@ function runHobbit() {
         hobbiton: {
             title: "Hobbiton Across the Water",
             desc: "Green grass, sunny skies, and the Hill rising behind you. Thorin Oakenshield is waiting here with his dwarf companions.",
-            exits: { west: "bagend", north: "road", east: "trollshaws" },
+            exits: { west: "bagend", north: "road" },
             items: ["MAP"]
         },
         road: {
