@@ -726,6 +726,8 @@ function processHobbitCommand(raw) {
                 printOutput("The One Ring slips onto your finger. You vanish from sight! Gandalf smiles knowingly from across the room.");
             } else if (obj === "MAP") {
                 printOutput("You unfold Thror's Map. Secret moon-runes gleam: 'Stand by the grey stone when the thrush knocks...'");
+            } else if (obj === "GOLDEN CUP") {
+                printOutput("\n*** VICTORY! ***\nYou have successfully looted Smaug's hoard, outwitted the dragon, and completed your epic quest. You return to your comfortable armchair at Bag End as a wealthy and legendary hobbit!\nType QUIT or EXIT to return to MS-DOS.");
             }
         } else {
             printOutput("You don't see that here.");
