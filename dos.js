@@ -237,6 +237,22 @@ document.addEventListener("keydown", (e) => {
 
 function processCommand(rawCmd) {
     if (!rawCmd) return;
+    
+    // Support chaining commands with '+' or '&&' or ';'
+    let subCommands = rawCmd.split(/\s*(\+|&&|;)\s*/);
+    if (subCommands.length > 1) {
+        for (let i = 0; i < subCommands.length; i++) {
+            let sc = subCommands[i].trim();
+            if (sc && sc !== "+" && sc !== "&&" && sc !== ";") {
+                processSingleCommand(sc);
+            }
+        }
+        return;
+    }
+    processSingleCommand(rawCmd);
+}
+
+function processSingleCommand(rawCmd) {
     let parts = rawCmd.split(/\s+/);
     let cmd = parts[0].toUpperCase();
     let args = parts.slice(1);
