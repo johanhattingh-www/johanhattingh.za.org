@@ -499,7 +499,23 @@ function processSingleCommand(rawCmd) {
     }
 }
 
+let inactivityTimer = null;
+
+function resetInactivityTimer() {
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+        if (currentGameState === "DOS" && !document.querySelector(".matrix-screen")) {
+            runMatrix();
+        }
+    }, 5 * 60 * 1000); // 5 minutes
+}
+
+document.addEventListener("mousemove", resetInactivityTimer);
+document.addEventListener("keydown", resetInactivityTimer);
+document.addEventListener("click", resetInactivityTimer);
+
 function runMatrix() {
+    if (inactivityTimer) clearTimeout(inactivityTimer);
     let bezel = document.querySelector(".monitor-bezel");
     let div = document.createElement("div");
     div.className = "matrix-screen";
@@ -536,6 +552,7 @@ function runMatrix() {
         div.remove();
         document.removeEventListener("keydown", keyHandler);
         inputEl.focus();
+        resetInactivityTimer();
     };
 
     let keyHandler = (e) => {
