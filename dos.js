@@ -990,7 +990,16 @@ function processHitchhikerCommand(raw) {
         return;
     }
 
-    if (verb === "EXAMINE" || verb === "X" || verb === "LOOK") {
+    if (verb === "DRINK" || verb === "EAT" || verb === "CONSUME") {
+        let target = obj;
+        if (hitchState.inventory.includes(target)) {
+            hitchState.inventory = hitchState.inventory.filter(i => i !== target);
+            printOutput("Down the hatch! You feel slightly more prepared to face the end of the world.");
+        } else {
+            printOutput("You aren't carrying that.");
+        }
+        return;
+    }
         let target = obj;
         if (!target) {
             hitchState.describeCurrentLoc();
