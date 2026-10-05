@@ -1005,6 +1005,8 @@ function processHitchhikerCommand(raw) {
         }
         return;
     }
+
+    if (verb === "EXAMINE" || verb === "X") {
         let target = obj;
         if (!target) {
             hitchState.describeCurrentLoc();
