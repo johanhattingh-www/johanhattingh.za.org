@@ -1,4 +1,6 @@
 BLOG ARCHIVES:
+- 2026-09-29: The Octopus Pot (OCTOPUS.TXT)
+- 2026-09-29: The Latency of the Fork (FORK.TXT)
 - 2026-09-29: The Horseshoe Magnet (MAGNET.TXT)
 - 2026-09-29: Blue Exam Pads (PADS.TXT)
 - 2026-09-29: The Copper Sprayer (SPRAYER.TXT)
