@@ -1,4 +1,5 @@
 BLOG ARCHIVES:
+- 2026-10-05: The Blank Badge (BLOOD.TXT)
 - 2026-09-29: The Octopus Pot (OCTOPUS.TXT)
 - 2026-09-29: The Latency of the Fork (FORK.TXT)
 - 2026-09-29: The Horseshoe Magnet (MAGNET.TXT)
