@@ -23,8 +23,32 @@ const fs = {
                     },
                     "ARCHIVES.TXT": {
                         type: "file",
-                        date: "10-05-26   9:00a",
-                        content: "BLOG ARCHIVES:\n- 2026-10-05: The Blank Badge (BLOOD.TXT)\n- 2026-09-29: The Octopus Pot (OCTOPUS.TXT)\n- 2026-09-29: The Latency of the Fork (FORK.TXT)\n- 2026-09-29: The Horseshoe Magnet (MAGNET.TXT)\n- 2026-09-29: Blue Exam Pads (PADS.TXT)\n- 2026-09-29: The Copper Sprayer (SPRAYER.TXT)\n- 2026-09-28: The Helmet (HELMET.TXT)\n- 2026-09-28: The Mainspring (SPRING.TXT)\n- 2026-09-28: The Gate (GATE.TXT)\n- 2026-09-28: Same Pattern, New Sand (RUST.TXT)\n- 2026-09-27: Sleep Inertia and the Ninth Hour (SLEEP.TXT)\n- 2026-09-26: The Rusted Vice (VICE.TXT)\n- 2026-09-25: The Copper Kettle (KETTLE.TXT)\n- 2026-09-23: Barnabas Frequency (BARNABAS.TXT)\n- 2026-09-22: The Morning Wire (WIRE.TXT)\n- 2026-09-15: The Kitchen Clock (CLOCK.TXT)\n- 2026-09-12: The Borehole and the Event Horizon (BOREHOLE.TXT)\n- 2026-09-08: The Sun and the Screen Door (SUN.TXT)\n- 2026-09-04: The Chemistry of Appetite (APPETITE.TXT)\n- 2026-09-01: The Physics of Stroke Recovery (STROKE.TXT)\n- 2026-08-15: Setting up Cloudflare DNS with GitHub Pages\n- 2026-07-01: Why Retro Computing Inspires Modern Engineering\n- 2026-06-10: Hello World from www.johanhattingh.za.org"
+                        date: "10-06-26   9:00a",
+                        content: "BLOG ARCHIVES:
+- 2026-10-06: The Entropy Pump (ENTROPY.TXT)
+- 2026-10-05: The Blank Badge (BLOOD.TXT)
+- 2026-09-29: The Octopus Pot (OCTOPUS.TXT)
+- 2026-09-29: The Latency of the Fork (FORK.TXT)
+- 2026-09-29: The Horseshoe Magnet (MAGNET.TXT)
+- 2026-09-29: Blue Exam Pads (PADS.TXT)
+- 2026-09-29: The Copper Sprayer (SPRAYER.TXT)
+- 2026-09-28: The Helmet (HELMET.TXT)
+- 2026-09-28: The Mainspring (SPRING.TXT)
+- 2026-09-28: The Gate (GATE.TXT)
+- 2026-09-28: Same Pattern, New Sand (RUST.TXT)
+- 2026-09-27: Sleep Inertia and the Ninth Hour (SLEEP.TXT)
+- 2026-09-26: The Rusted Vice (VICE.TXT)
+- 2026-09-25: The Copper Kettle (KETTLE.TXT)
+- 2026-09-23: Barnabas Frequency (BARNABAS.TXT)
+- 2026-09-22: The Morning Wire (WIRE.TXT)
+- 2026-09-15: The Kitchen Clock (CLOCK.TXT)
+- 2026-09-12: The Borehole and the Event Horizon (BOREHOLE.TXT)
+- 2026-09-08: The Sun and the Screen Door (SUN.TXT)
+- 2026-09-04: The Chemistry of Appetite (APPETITE.TXT)
+- 2026-09-01: The Physics of Stroke Recovery (STROKE.TXT)
+- 2026-08-15: Setting up Cloudflare DNS with GitHub Pages
+- 2026-07-01: Why Retro Computing Inspires Modern Engineering
+- 2026-06-10: Hello World from www.johanhattingh.za.org"
                     },
                     "STROKE.TXT": {
                         type: "file",
@@ -120,6 +144,11 @@ const fs = {
                         type: "file",
                         date: "09-29-26   1:15p",
                         content: "Date: September 29, 2026\nSubject: The Latency of the Fork\n\nI was staring down at an empty lunch plate yesterday, wondering how the bobotie had vanished in under six minutes while the tea in my mug was still too hot to sip. We always blame willpower when the second helping happens, as if the fork was driven by some moral failure instead of plain old physics.\n\nTurns out the gut runs on a delayed timer. Cholecystokinin, peptide YY, and GLP-1 take a solid fifteen to twenty minutes traveling through the portal vein and up to the hypothalamus before the brain gets the memo that fullness has arrived. If you polish off the plate in five minutes, you are racing past a stop sign that is still sitting miles down the road in transit.\n\nIn the old days, coarse bread, tough biltong, and raw root veggies forced you to chew thirty times a bite. The food was the rate-limiter. Modern processed stuff melts on the tongue, so the fork outruns the physiology every single time. It is not about discipline. It is just latency. Slow the pace down, put the fork down between bites, and give your hormones time to catch up before the plate is already clean."
+                    },
+                    "ENTROPY.TXT": {
+                        type: "file",
+                        date: "10-06-26  10:00a",
+                        content: "Date: October 06, 2026\nSubject: The Entropy Pump\n\nEver wondered why we wake up with new aches even though we feel like ourselves? I was reading about the atoms in our bodies—how almost every single one of them gets swapped out for new material through the food we eat and the air we breathe every few years. Physically, you aren't the same person you were a decade ago. We’re more like a candle flame or a wave in the ocean: we’re a continuous process, a pattern maintained by incredibly complex cellular machinery.\n\nThe thing is, nature isn't perfect at copying that pattern. Between cosmic rays, radioactive decay inside our own bones, and even quantum tunneling, our DNA takes a beating every single day. We have molecular \"demons\"—our repair enzymes—working round the clock to fix the errors, but they’re fighting an uphill battle against the second law of thermodynamics. We’re essentially entropy pumps, borrowing order from our environment to keep the pattern alive. It’s not just a biological struggle; it’s a physics problem. We aren't aging because of a design flaw—we're aging because the machinery that protects our information is made of the same stuff it’s trying to preserve. Stay curious, friends."
                     },
                     "BLOOD.TXT": {
                         type: "file",
