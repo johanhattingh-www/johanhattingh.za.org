@@ -25,6 +25,7 @@ const fs = {
                         type: "file",
                         date: "10-06-26   9:00a",
                         content: "BLOG ARCHIVES:
+- 2026-10-06: The Thermal Gate (THERMAL.TXT)
 - 2026-10-06: The Star Circuit (STAR.TXT)
 - 2026-10-06: The Entropy Pump (ENTROPY.TXT)
 - 2026-10-05: The Blank Badge (BLOOD.TXT)
@@ -145,6 +146,22 @@ const fs = {
                         type: "file",
                         date: "09-29-26   1:15p",
                         content: "Date: September 29, 2026\nSubject: The Latency of the Fork\n\nI was staring down at an empty lunch plate yesterday, wondering how the bobotie had vanished in under six minutes while the tea in my mug was still too hot to sip. We always blame willpower when the second helping happens, as if the fork was driven by some moral failure instead of plain old physics.\n\nTurns out the gut runs on a delayed timer. Cholecystokinin, peptide YY, and GLP-1 take a solid fifteen to twenty minutes traveling through the portal vein and up to the hypothalamus before the brain gets the memo that fullness has arrived. If you polish off the plate in five minutes, you are racing past a stop sign that is still sitting miles down the road in transit.\n\nIn the old days, coarse bread, tough biltong, and raw root veggies forced you to chew thirty times a bite. The food was the rate-limiter. Modern processed stuff melts on the tongue, so the fork outruns the physiology every single time. It is not about discipline. It is just latency. Slow the pace down, put the fork down between bites, and give your hormones time to catch up before the plate is already clean."
+                    },
+                    "THERMAL.TXT": {
+                        type: "file",
+                        date: "10-06-26   7:30a",
+                        content: "Date: October 06, 2026
+Subject: The Thermal Gate
+
+Liesl caught me staring at the ceiling tiles around two in the morning last week, listening to the old fridge motor cycle on and off down the hall while my brain ran through every unprinted physics exam for the third term.
+
+We treat insomnia like a moral failure or a switch that refuses to flip off, but down at the cellular level, it's usually just a thermal and chemical mismatch. Your core body temperature has to drop by about a degree Celsius to trigger the onset of deep sleep, acting as the primary physiological gatekeeper for melatonin release. If your room is too warm, or if your digestion is still processing a late snack, that thermal drop stalls out, and the hypothalamus keeps the engine idling at high RPM.
+
+Worse still, when you lie awake staring at the clock, classical conditioning turns your pillow into a trigger. Your amygdala starts pairing the bed with frustration and problem-solving rather than rest, flooding your system with micro-doses of cortisol just to keep you alert to the "threat" of being awake.
+
+Sometimes the best advice isn't another supplement or a breathing app. It's just getting out of bed, sitting in a dim chair with a boring book until your eyelids feel like lead weights, and letting the thermodynamics catch up with you.
+
+The switch doesn't care how badly you want it thrown; it only drops when the heat finally leaves the core."
                     },
                     "STAR.TXT": {
                         type: "file",
