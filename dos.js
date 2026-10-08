@@ -25,6 +25,7 @@ const fs = {
                         type: "file",
                         date: "10-06-26   9:00a",
                         content: "BLOG ARCHIVES:
+- 2026-10-06: The Star Circuit (STAR.TXT)
 - 2026-10-06: The Entropy Pump (ENTROPY.TXT)
 - 2026-10-05: The Blank Badge (BLOOD.TXT)
 - 2026-09-29: The Octopus Pot (OCTOPUS.TXT)
@@ -144,6 +145,20 @@ const fs = {
                         type: "file",
                         date: "09-29-26   1:15p",
                         content: "Date: September 29, 2026\nSubject: The Latency of the Fork\n\nI was staring down at an empty lunch plate yesterday, wondering how the bobotie had vanished in under six minutes while the tea in my mug was still too hot to sip. We always blame willpower when the second helping happens, as if the fork was driven by some moral failure instead of plain old physics.\n\nTurns out the gut runs on a delayed timer. Cholecystokinin, peptide YY, and GLP-1 take a solid fifteen to twenty minutes traveling through the portal vein and up to the hypothalamus before the brain gets the memo that fullness has arrived. If you polish off the plate in five minutes, you are racing past a stop sign that is still sitting miles down the road in transit.\n\nIn the old days, coarse bread, tough biltong, and raw root veggies forced you to chew thirty times a bite. The food was the rate-limiter. Modern processed stuff melts on the tongue, so the fork outruns the physiology every single time. It is not about discipline. It is just latency. Slow the pace down, put the fork down between bites, and give your hormones time to catch up before the plate is already clean."
+                    },
+                    "STAR.TXT": {
+                        type: "file",
+                        date: "10-06-26   8:00a",
+                        content: "Date: October 06, 2026
+Subject: The Star Circuit
+
+First warm day of spring, you step outside and the body just uncoils before you even register why. We spend half the year huddled under fluorescent tubes and heavy wool, forgetting we are basically solar-powered engines wired to respond to the sky.
+
+Working in a school lab all day, you see it on the kids' faces—they drag through winter like unplugged appliances, then the first real sun hits the courtyard and everyone suddenly remembers how to laugh.
+
+Feynman points out something fascinating about how our skin actually handles the sun. Outdoor workers—farmers, builders, postmen—get less malignant melanoma than office workers do. It sounds backwards until you look at the dose pattern. Steady, moderate, everyday exposure lets the skin adapt, build melanin, and train its cellular repair enzymes. Indoor workers hide away, get zero exposure for months, and then fry in one weekend blast on holiday.
+
+We trained our biology to cower indoors, but the machinery is built to be out there under the star. Step outside tomorrow morning before the first bell and let the skin remember what it was made for."
                     },
                     "ENTROPY.TXT": {
                         type: "file",
