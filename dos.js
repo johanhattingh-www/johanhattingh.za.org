@@ -25,6 +25,7 @@ const fs = {
                         type: "file",
                         date: "10-06-26   9:00a",
                         content: "BLOG ARCHIVES:
+- 2026-10-06: The Octopus Pot (OCTOPUS_POT.TXT)
 - 2026-10-06: The Thermal Gate (THERMAL.TXT)
 - 2026-10-06: The Star Circuit (STAR.TXT)
 - 2026-10-06: The Entropy Pump (ENTROPY.TXT)
@@ -146,6 +147,20 @@ const fs = {
                         type: "file",
                         date: "09-29-26   1:15p",
                         content: "Date: September 29, 2026\nSubject: The Latency of the Fork\n\nI was staring down at an empty lunch plate yesterday, wondering how the bobotie had vanished in under six minutes while the tea in my mug was still too hot to sip. We always blame willpower when the second helping happens, as if the fork was driven by some moral failure instead of plain old physics.\n\nTurns out the gut runs on a delayed timer. Cholecystokinin, peptide YY, and GLP-1 take a solid fifteen to twenty minutes traveling through the portal vein and up to the hypothalamus before the brain gets the memo that fullness has arrived. If you polish off the plate in five minutes, you are racing past a stop sign that is still sitting miles down the road in transit.\n\nIn the old days, coarse bread, tough biltong, and raw root veggies forced you to chew thirty times a bite. The food was the rate-limiter. Modern processed stuff melts on the tongue, so the fork outruns the physiology every single time. It is not about discipline. It is just latency. Slow the pace down, put the fork down between bites, and give your hormones time to catch up before the plate is already clean."
+                    },
+                    "OCTOPUS_POT.TXT": {
+                        type: "file",
+                        date: "10-06-26  10:30a",
+                        content: "Date: October 06, 2026
+Subject: The Octopus Pot
+
+Teaching grade 11 physics on a Tuesday morning while the radiator clanks in the corner gives you plenty of time to watch how fragile a human engine really is.
+
+We talk about stress like it's just an abstract noun we toss around during exam season, but the body keeps an exact ledger. Back in 1990, doctors in Hiroshima looked at an emergency room patient whose husband had died that very morning. She had all the crushing chest pain of a heart attack, yet her coronary arteries were completely clear. Instead, her left ventricle had ballooned outward into the exact shape of a traditional Japanese octopus pot—a takotsubo.
+
+Her heart had literally changed shape under a chemical flood of adrenaline and norepinephrine running seven to thirty-four times higher than normal. Grief isn't just poetry or a heavy chest; it's a physiological shock wave that alters tissue.
+
+When we lose someone or something we anchored our lives to, the brain's pain circuitry registers the absence through the exact same pathways it uses for a broken bone. Physics and biology don't separate emotion from matter. We are wired to bind, and the break leaves a measurable trace."
                     },
                     "THERMAL.TXT": {
                         type: "file",
